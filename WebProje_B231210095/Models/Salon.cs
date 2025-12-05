@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WebProje_B231210095.Models;
 
 namespace WebProje_B231210095.Models
 {
@@ -21,7 +20,10 @@ namespace WebProje_B231210095.Models
         public string Aciklama { get; set; }
 
         // İlişkiler
+        // Bir salonun birden çok hizmeti olabilir
         public ICollection<Hizmet> Hizmetler { get; set; }
+
+        // Bir salonda birden çok antrenör çalışabilir
         public ICollection<Antrenor> Antrenorler { get; set; }
     }
 }

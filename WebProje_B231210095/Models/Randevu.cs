@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
-using WebProje_B231210095.Models;
 
 namespace WebProje_B231210095.Models
 {
+    // Randevu bilgilerini tutar
     public class Randevu
     {
         public int Id { get; set; }
@@ -13,6 +14,8 @@ namespace WebProje_B231210095.Models
 
         public int SureDakika { get; set; }
 
+        // Ücret için precision ekledik
+        [Precision(18, 2)]
         public decimal Ucret { get; set; }
 
         [StringLength(50)]

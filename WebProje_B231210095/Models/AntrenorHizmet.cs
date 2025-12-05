@@ -2,6 +2,7 @@
 
 namespace WebProje_B231210095.Models
 {
+    // Çoktan çoğa ilişki tablosu (Antrenör - Hizmet)
     public class AntrenorHizmet
     {
         public int AntrenorId { get; set; }

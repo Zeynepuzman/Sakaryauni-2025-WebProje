@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WebProje_B231210095.Models;
 
 namespace WebProje_B231210095.Models
 {
+    // Antrenör bilgileri
     public class Antrenor
     {
         public int Id { get; set; }
@@ -17,14 +17,14 @@ namespace WebProje_B231210095.Models
         [StringLength(500)]
         public string Biyografi { get; set; }
 
-        // Salon ile ilişki
+        // Antrenör bir salona bağlıdır
         public int SalonId { get; set; }
         public Salon Salon { get; set; }
 
-        // Çoktan çoğa ilişki
+        // Many-to-many ilişki (Antrenör - Hizmet)
         public ICollection<AntrenorHizmet> AntrenorHizmetler { get; set; }
 
-        // Bir antrenörün randevuları olabilir
+        // Antrenöre bağlı randevular
         public ICollection<Randevu> Randevular { get; set; }
     }
 }
