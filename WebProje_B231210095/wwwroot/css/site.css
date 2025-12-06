@@ -20,3 +20,88 @@ html {
 body {
   margin-bottom: 60px;
 }
+/* Özel Butonlar */
+.custom-btn {
+    background-color: #116062;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    transition: 0.3s ease;
+}
+
+    .custom-btn:hover {
+        background-color: #0d4d50;
+        color: white;
+        transform: scale(1.05);
+    }
+
+/* Outline buton */
+.custom-btn-outline {
+    border: 2px solid #116062;
+    color: #116062;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+    .custom-btn-outline:hover {
+        background-color: #116062;
+        color: white;
+        transform: scale(1.05);
+    }
+
+/* DOLU YEÞÝL BUTON */
+.custom-btn {
+    background-color: #116062;
+    color: white !important;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    transition: 0.3s ease;
+    text-decoration: none !important;
+}
+
+    .custom-btn:hover {
+        background-color: #0d4d50;
+        color: white !important;
+        transform: scale(1.05);
+    }
+
+/* ÇERÇEVELÝ YEÞÝL BUTON */
+.custom-btn-outline {
+    border: 2px solid #116062;
+    color: #116062 !important;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s ease;
+    text-decoration: none !important;
+}
+
+    .custom-btn-outline:hover {
+        background-color: #116062;
+        color: white !important;
+        transform: scale(1.05);
+    }
+/* Özel Yeþil Buton – Geliþmiþ */
+.custom-btn {
+    background-color: #116062;
+    color: white !important;
+    font-size: 17px;
+    font-weight: 600;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+    /* Baþlangýç gölgesi */
+    box-shadow: 0 4px 14px rgba(17, 96, 98, 0.3);
+}
+
+    .custom-btn:hover {
+        background-color: #0d4d50;
+        color: #ffffff !important;
+        /* Hover gölgesi ve büyüme */
+        transform: scale(1.08);
+        box-shadow: 0 6px 20px rgba(17, 96, 98, 0.45);
+    }

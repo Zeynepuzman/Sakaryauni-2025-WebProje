@@ -1,8 +1,145 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Ana Sayfa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Hero Section -->
+<div class="hero-wrapper">
+    <div class="hero-section text-white d-flex align-items-center">
+        <div class="container text-center">
+            <h1 class="display-3 fw-bold mb-3">Güçlü Bir Yaşam İçin İlk Adımı At!</h1>
+            <p class="lead mb-4">Motivasyon, disiplin ve doğru rehberlik ile hedeflerine ulaşman artık çok daha kolay.</p>
+            <a href="/Identity/Account/Register" class="custom-btn btn-lg rounded-pill">
+                Hemen Üye Ol
+            </a>
+        </div>
+    </div>
 </div>
+
+
+<!-- Motivasyon Sözleri -->
+<div class="container my-5">
+    <h2 class="text-center fw-bold mb-4">Motivasyon Köşesi</h2>
+
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="p-4 shadow rounded-3">
+                <h5>"Bugün harekete geç; yarın kendine teşekkür edeceksin."</h5>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="p-4 shadow rounded-3">
+                <h5>"Disiplin, hedeflerine ulaşmanın anahtarıdır."</h5>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="p-4 shadow rounded-3">
+                <h5>"Küçük adımlar, büyük değişimlere dönüşür."</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Spor Kategorileri -->
+<div class="container my-5">
+    <h2 class="text-center fw-bold mb-4">Spor ve Wellness Alanları</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card shadow category-card">
+                <img src="/images/fitness.jpg" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Fitness</h5>
+                    <p class="card-text">Güç, dayanıklılık ve sağlıklı bir yaşam için antrenman planları.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow category-card">
+                <img src="/images/yoga.jpg" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Yoga</h5>
+                    <p class="card-text">Bedensel esneklik ve zihinsel rahatlama sağlayan özel yoga dersleri.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow category-card">
+                <img src="/images/nutrition.jpg" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Beslenme</h5>
+                    <p class="card-text">Doğru beslenme ile daha enerjik ve sağlıklı bir yaşam.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .category-card img{
+        height: 220px;
+        object-fit: cover;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .category-card {
+        border-radius: 10px;
+        transition: 0.3s ease;
+    }
+
+    .category-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .hero-section {
+        position: relative;
+    }
+
+    .hero-section::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+    }
+
+    .hero-section .container {
+        position: relative;
+        z-index: 2;
+    }
+    /* HERO WRAPPER - ÇERÇEVE + OVALLİK + GÖLGE */
+.hero-wrapper {
+    max-width: 1200px;
+    margin: 40px auto;
+    border-radius: 35px;
+    overflow: hidden;
+    border: 6px solid #116062; /* Yeşil çerçeve */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+
+/* HERO SECTION - ARKA PLAN RESMİ VE ÜST KAPAK */
+.hero-section {
+    height: 85vh;
+    background: url('/images/fitness-banner.jpg') center/cover no-repeat;
+
+    position: relative;
+}
+
+/* Üstüne hafif koyu bir filtre */
+.hero-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+</style>

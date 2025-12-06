@@ -14,9 +14,6 @@ namespace WebProje_B231210095.Models
         public float? Boy { get; set; }
         public float? Kilo { get; set; }
 
-        // Profil fotoğrafı yolu
-        public string ProfilResmi { get; set; }
-
         // Kullanıcının randevuları
         public ICollection<Randevu> Randevular { get; set; }
     }

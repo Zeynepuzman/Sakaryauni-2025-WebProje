@@ -1,0 +1,76 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h3 class="text-center mb-3">Yeni Hesap Oluştur</h3>
+            <hr />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <!-- Ad Soyad -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.AdSoyad" class="form-control" placeholder="Ad Soyad" />
+                <label asp-for="Input.AdSoyad">Ad Soyad</label>
+                <span asp-validation-for="Input.AdSoyad" class="text-danger"></span>
+            </div>
+
+            <!-- Yaş -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Yas" class="form-control" type="number" placeholder="Yaş" />
+                <label asp-for="Input.Yas">Yaş</label>
+                <span asp-validation-for="Input.Yas" class="text-danger"></span>
+            </div>
+
+            <!-- Boy -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Boy" class="form-control" type="number" step="0.1" placeholder="Boy (cm)" />
+                <label asp-for="Input.Boy">Boy (cm)</label>
+                <span asp-validation-for="Input.Boy" class="text-danger"></span>
+            </div>
+
+            <!-- Kilo -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Kilo" class="form-control" type="number" step="0.1" placeholder="Kilo (kg)" />
+                <label asp-for="Input.Kilo">Kilo (kg)</label>
+                <span asp-validation-for="Input.Kilo" class="text-danger"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" placeholder="name@example.com" />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <!-- Şifre -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" placeholder="Password" />
+                <label asp-for="Input.Password">Şifre</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <!-- Şifre Tekrar -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                <label asp-for="Input.ConfirmPassword">Şifre Tekrar</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <!-- Kayıt Ol Butonu -->
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg" style="background-color:#116062; color:white;">
+                Kayıt Ol
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

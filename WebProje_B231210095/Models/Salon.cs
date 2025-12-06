@@ -21,9 +21,11 @@ namespace WebProje_B231210095.Models
 
         // İlişkiler
         // Bir salonun birden çok hizmeti olabilir
-        public ICollection<Hizmet> Hizmetler { get; set; }
+ 
+        public ICollection<Hizmet> Hizmetler { get; set; } = new List<Hizmet>();
+        public ICollection<Antrenor> Antrenorler { get; set; } = new List<Antrenor>();
 
         // Bir salonda birden çok antrenör çalışabilir
-        public ICollection<Antrenor> Antrenorler { get; set; }
+     
     }
 }

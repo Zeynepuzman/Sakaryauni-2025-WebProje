@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebProje_B231210095.Data;
 using WebProje_B231210095.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,22 +11,24 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //  Identity sistemini ekliyoruz
-// (Kullanýcý yönetimi: giriþ, þifre, roller vb.)
+// (KullanÄ±cÄ± yÃ¶netimi: giriÅŸ, ÅŸifre, roller vb.)
 
 builder.Services.AddIdentity<Uye, IdentityRole>(options =>
 {
-    // E-posta doðrulamasý gerektirmesin (ödev/test için ideal)
+    // E-posta doÄŸrulamasÄ± gerektirmesin (Ã¶dev/test iÃ§in ideal)
     options.SignIn.RequireConfirmedAccount = false;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
+builder.Services.AddSingleton<IEmailSender, FakeEmailSender>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline./ MVC desteðini ekliyoruz
+// Configure the HTTP request pipeline./ MVC desteÄŸini ekliyoruz
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -37,13 +41,24 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Identity’nin çalýþmasý için gerekli
+// Identityâ€™nin Ã§alÄ±ÅŸmasÄ± iÃ§in gerekli
 app.UseAuthentication();
 app.UseAuthorization();
 
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+public class FakeEmailSender : IEmailSender
+{
+    public Task SendEmailAsync(string email, string subject, string htmlMessage)
+    {
+        Console.WriteLine($"FAKE EMAIL: {email} - {subject}");
+        return Task.CompletedTask;
+    }
+}
