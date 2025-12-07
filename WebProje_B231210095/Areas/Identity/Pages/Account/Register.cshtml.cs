@@ -103,7 +103,7 @@ namespace WebProje_B231210095.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
-                // 🔥 BURADA EKSTRA ALANLARI USER OBJESİNE ATIYORUZ
+                // BURADA EKSTRA ALANLARI USER OBJESİNE ATIYORUZ
                 user.AdSoyad = Input.AdSoyad;
                 user.Yas = Input.Yas;
                 user.Boy = Input.Boy;

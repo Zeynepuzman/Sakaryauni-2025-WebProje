@@ -110,32 +110,34 @@ namespace WebProje_B231210095.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                // 1) Kullanıcı email’e göre aranır
+                var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+
+                if (user == null)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    // Email yok → kullanıcı bulunamadı
+                    ModelState.AddModelError(string.Empty, "Bu email adresi ile kayıt bulunamadı. Lütfen önce üye olunuz.");
                     return Page();
                 }
+
+                // 2) Şifre kontrol edilir
+                var passwordCorrect = await _signInManager.UserManager.CheckPasswordAsync(user, Input.Password);
+
+                if (!passwordCorrect)
+                {
+                    // Email var ama şifre yanlış
+                    ModelState.AddModelError(string.Empty, "Şifre hatalı. Lütfen tekrar deneyiniz.");
+                    return Page();
+                }
+
+                // 3) Giriş başarılı → Identity login işlemi yapılır
+                await _signInManager.SignInAsync(user, Input.RememberMe);
+                return LocalRedirect(returnUrl);
             }
 
-            // If we got this far, something failed, redisplay form
+            // Model geçersizse formu tekrar göster
             return Page();
         }
+
     }
 }
