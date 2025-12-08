@@ -132,7 +132,19 @@ namespace WebProje_B231210095.Areas.Identity.Pages.Account
 
                 // 3) Giriş başarılı → Identity login işlemi yapılır
                 await _signInManager.SignInAsync(user, Input.RememberMe);
-                return LocalRedirect(returnUrl);
+
+                // Kullanıcının rollerini al
+                var roles = await _signInManager.UserManager.GetRolesAsync(user);
+
+                // Eğer kullanıcı Admin ise admin paneline yönlendir
+                if (roles.Contains("Admin"))
+                {
+                    return Redirect("/Admin/Dashboard/Index");
+                }
+
+                // Değilse normal kullanıcı sayfasına yönlendir
+                return Redirect("/Home/Index");
+
             }
 
             // Model geçersizse formu tekrar göster
