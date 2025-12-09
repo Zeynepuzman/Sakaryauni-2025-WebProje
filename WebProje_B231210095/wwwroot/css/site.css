@@ -1,91 +1,39 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
-/* Özel Butonlar */
+
+/* Odak durumlarý */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* ?? Ana Yeþil Renk */
+:root {
+    --green-main: #116062;
+    --green-dark: #0d4d50;
+}
+
+/* --------------------------------------------------
+   ? DOLU YEÞÝL BUTON
+-------------------------------------------------- */
 .custom-btn {
-    background-color: #116062;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    transition: 0.3s ease;
-}
-
-    .custom-btn:hover {
-        background-color: #0d4d50;
-        color: white;
-        transform: scale(1.05);
-    }
-
-/* Outline buton */
-.custom-btn-outline {
-    border: 2px solid #116062;
-    color: #116062;
-    font-size: 16px;
-    font-weight: 600;
-    transition: 0.3s ease;
-}
-
-    .custom-btn-outline:hover {
-        background-color: #116062;
-        color: white;
-        transform: scale(1.05);
-    }
-
-/* DOLU YEÞÝL BUTON */
-.custom-btn {
-    background-color: #116062;
-    color: white !important;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    transition: 0.3s ease;
-    text-decoration: none !important;
-}
-
-    .custom-btn:hover {
-        background-color: #0d4d50;
-        color: white !important;
-        transform: scale(1.05);
-    }
-
-/* ÇERÇEVELÝ YEÞÝL BUTON */
-.custom-btn-outline {
-    border: 2px solid #116062;
-    color: #116062 !important;
-    font-size: 16px;
-    font-weight: 600;
-    transition: 0.3s ease;
-    text-decoration: none !important;
-}
-
-    .custom-btn-outline:hover {
-        background-color: #116062;
-        color: white !important;
-        transform: scale(1.05);
-    }
-/* Özel Yeþil Buton – Geliþmiþ */
-.custom-btn {
-    background-color: #116062;
+    background-color: var(--green-main);
     color: white !important;
     font-size: 17px;
     font-weight: 600;
@@ -94,14 +42,247 @@ body {
     border-radius: 50px;
     transition: all 0.3s ease;
     text-decoration: none !important;
-    /* Baþlangýç gölgesi */
+    display: inline-block;
+    min-width: 200px; /* ?? Buton geniþliklerini eþitler */
+    text-align: center;
     box-shadow: 0 4px 14px rgba(17, 96, 98, 0.3);
 }
 
     .custom-btn:hover {
-        background-color: #0d4d50;
-        color: #ffffff !important;
-        /* Hover gölgesi ve büyüme */
-        transform: scale(1.08);
+        background-color: var(--green-dark);
+        color: white !important;
+        transform: scale(1.06);
         box-shadow: 0 6px 20px rgba(17, 96, 98, 0.45);
     }
+
+/* --------------------------------------------------
+   ? ÇERÇEVELÝ YEÞÝL BUTON
+-------------------------------------------------- */
+.custom-btn-outline {
+    border: 2px solid var(--green-main);
+    color: var(--green-main) !important;
+    background: transparent;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+    min-width: 200px;
+    text-align: center;
+}
+
+    .custom-btn-outline:hover {
+        background-color: var(--green-main);
+        color: white !important;
+        transform: scale(1.06);
+    }
+
+/* --------------------------------------------------
+   ? HERO ALANI BUTON GRUBU
+-------------------------------------------------- */
+.hero-buttons {
+    margin-top: 25px;
+}
+
+    .hero-buttons a {
+        margin: 0 10px;
+        display: inline-block;
+    }
+/* HÝZMETLER SAYFASI GENEL */
+.services-page {
+    padding-bottom: 60px;
+}
+
+.services-hero {
+    padding: 60px 15px 30px;
+}
+
+.services-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #116062;
+}
+
+.services-subtitle {
+    max-width: 650px;
+    margin: 10px auto 0;
+    font-size: 1.05rem;
+    color: #555;
+}
+
+/* MODERN KARTLAR */
+.services-grid {
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.service-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px 20px;
+    text-align: left;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    height: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .service-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+.service-icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.service-heading {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+.service-text {
+    font-size: 0.98rem;
+    color: #666;
+    margin: 0;
+}
+
+/* PREMIUM FOTOÐRAFLI KARTLAR */
+.premium-service-card {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    min-height: 220px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.18);
+}
+
+.premium-pt {
+    background-image: url("/images/pt.jpg"); /* BURAYA KENDÝ RESMÝNÝ KOY */
+}
+
+.premium-group {
+    background-image: url("/images/group.jpg"); /* BURAYA KENDÝ RESMÝNÝ KOY */
+}
+.premium-pt {
+    background-image: url("/images/pt.jpg");
+}
+
+.premium-group {
+    background-image: url("/images/group.jpg");
+}
+
+.premium-overlay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 30px 25px;
+    background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .premium-overlay h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .premium-overlay p {
+        max-width: 600px;
+        font-size: 0.98rem;
+        margin-bottom: 15px;
+    }
+
+.premium-btn {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid #fff;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+    .premium-btn:hover {
+        background: #fff;
+        color: #116062;
+    }
+
+/* Mobil uyum küçük iyileþtirme */
+@media (max-width: 576px) {
+    .services-title {
+        font-size: 2rem;
+    }
+
+    .premium-overlay {
+        padding: 20px 15px;
+    }
+
+        .premium-overlay h2 {
+            font-size: 1.3rem;
+        }
+}
+.hero-section .custom-btn {
+    margin: 10px 15px;
+}
+
+.hero-section .container {
+    margin-top: -40px; /* butonlarý yukarý taþýr */
+}
+
+.premium-card {
+    height: 300px;
+    border-radius: 25px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+
+    .premium-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+    }
+
+.premium-content {
+    position: absolute;
+    z-index: 2;
+    color: white;
+    padding: 30px;
+    bottom: 20px;
+}
+
+    .premium-content h3 {
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+    }
+
+.premium-btn {
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 30px;
+    border: 2px solid white;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+    .premium-btn:hover {
+        background: white;
+        color: #116062;
+        transform: scale(1.05);
+    }
+
+

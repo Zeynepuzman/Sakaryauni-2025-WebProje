@@ -8,12 +8,15 @@
         <div class="container text-center">
             <h1 class="display-3 fw-bold mb-3">Güçlü Bir Yaşam İçin İlk Adımı At!</h1>
             <p class="lead mb-4">Motivasyon, disiplin ve doğru rehberlik ile hedeflerine ulaşman artık çok daha kolay.</p>
+
             <a href="/Identity/Account/Register" class="custom-btn btn-lg rounded-pill">
                 Hemen Üye Ol
             </a>
+
         </div>
     </div>
 </div>
+
 
 
 <!-- Motivasyon Sözleri -->
@@ -122,12 +125,15 @@
 }
 
 /* HERO SECTION - ARKA PLAN RESMİ VE ÜST KAPAK */
-.hero-section {
-    height: 85vh;
-    background: url('/images/fitness-banner.jpg') center/cover no-repeat;
+    .hero-section {
+        height: 85vh;
+        background-image: url('/images/fitness-banner.jpg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+    }
 
-    position: relative;
-}
 
 /* Üstüne hafif koyu bir filtre */
 .hero-section::after {
