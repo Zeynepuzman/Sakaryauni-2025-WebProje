@@ -1,0 +1,42 @@
+﻿@model WebProje_B231210095.Models.Antrenor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Antrenor</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AdSoyad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AdSoyad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Uzmanlik)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Uzmanlik)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Biyografi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Biyografi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Salon)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Salon.Ad)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

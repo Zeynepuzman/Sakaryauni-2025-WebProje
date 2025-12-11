@@ -17,6 +17,12 @@ namespace WebProje_B231210095.Models
         [StringLength(500)]
         public string Biyografi { get; set; }
 
+        [StringLength(150)]
+        public string Telefon { get; set; }
+
+        [StringLength(150)]
+        public string Email { get; set; }
+
         // Antrenör bir salona bağlıdır
         public int SalonId { get; set; }
         public Salon Salon { get; set; }

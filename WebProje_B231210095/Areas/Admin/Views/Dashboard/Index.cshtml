@@ -2,5 +2,69 @@
     ViewData["Title"] = "Admin Paneli";
 }
 
-<h1>Admin Paneline Hoş Geldiniz</h1>
-<p>Buradan salon, hizmet, antrenör ve kullanıcı yönetimi yapılacak.</p>
+<div class="container mt-4">
+
+    <h2 class="text-center fw-bold mb-5">Admin Paneline Hoş Geldiniz</h2>
+
+    <div class="row g-4">
+
+        <!-- Toplam Üye -->
+        <div class="col-md-3">
+            <div class="admin-card shadow-sm p-4 text-center rounded">
+                <h3 class="stat-number">@ViewBag.ToplamUye</h3>
+                <p class="stat-label">Toplam Üye</p>
+            </div>
+        </div>
+
+        <!-- Antrenör Sayısı -->
+        <div class="col-md-3">
+            <div class="admin-card shadow-sm p-4 text-center rounded">
+                <h3 class="stat-number">@ViewBag.ToplamAntrenor</h3>
+                <p class="stat-label">Antrenör Sayısı</p>
+            </div>
+        </div>
+
+        <!-- Hizmet Sayısı -->
+        <div class="col-md-3">
+            <div class="admin-card shadow-sm p-4 text-center rounded">
+                <h3 class="stat-number">@ViewBag.ToplamHizmet</h3>
+                <p class="stat-label">Hizmet Sayısı</p>
+            </div>
+        </div>
+
+        <!-- Bugünkü Randevu -->
+        <div class="col-md-3">
+            <div class="admin-card shadow-sm p-4 text-center rounded">
+                <h3 class="stat-number">@ViewBag.BugunRandevu</h3>
+                <p class="stat-label">Bugünkü Randevular</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .admin-card {
+        background: white;
+        border-left: 6px solid #116062;
+        transition: 0.3s ease;
+    }
+
+        .admin-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+        }
+
+    .stat-number {
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: #116062;
+        margin: 0;
+    }
+
+    .stat-label {
+        font-size: 1.1rem;
+        color: #333;
+        margin-top: 5px;
+    }
+</style>
