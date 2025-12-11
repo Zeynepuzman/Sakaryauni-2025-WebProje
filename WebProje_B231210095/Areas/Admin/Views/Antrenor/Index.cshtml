@@ -1,32 +1,101 @@
 ﻿@model IEnumerable<WebProje_B231210095.Models.Antrenor>
 
-<h2>Antrenör Yönetimi</h2>
+<div class="container mt-5">
+    <h2 class="text-center fw-bold mb-4">Antrenör Yönetimi</h2>
 
-<a asp-action="Create" class="btn btn-success mb-3">+ Yeni Antrenör Ekle</a>
-
-<table class="table table-bordered table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>Ad Soyad</th>
-            <th>Uzmanlık</th>
-            <th>Telefon</th>
-            <th>Email</th>
-            <th>İşlemler</th>
-        </tr>
-    </thead>
-    <tbody>
+    <div class="row g-4">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.AdSoyad</td>
-                <td>@item.Uzmanlik</td>
-                <td>@item.Telefon</td>
-                <td>@item.Email</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
-                </td>
-            </tr>
+            <div class="col-md-4">
+                <div class="trainer-card">
+
+                    <!-- FOTOĞRAF -->
+                    <div class="trainer-photo">
+                        <img src="/images/default-trainer.jpg" alt="Fotoğraf" />
+                    </div>
+
+                    <!-- BİLGİLER -->
+                    <div class="trainer-info">
+                        <p><strong>Ad Soyad:</strong> @item.AdSoyad</p>
+                        <p><strong>Uzmanlık:</strong> @item.Uzmanlik</p>
+                        <p><strong>Telefon:</strong> @item.Telefon</p>
+                        <p><strong>E-mail:</strong> @item.Email</p>
+                    </div>
+
+                    <!-- BUTONLAR -->
+                    <div class="trainer-actions">
+                        <a href="/Admin/Antrenor/Edit/@item.Id" class="btn btn-edit">Düzenle</a>
+                        <a href="/Admin/Antrenor/Delete/@item.Id" class="btn btn-delete">Sil</a>
+                    </div>
+
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
+
+
+<style>
+    .trainer-card {
+        background: #fff;
+        border-radius: 25px;
+        padding: 25px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        text-align: center;
+        transition: 0.3s ease;
+    }
+
+        .trainer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.20);
+        }
+
+    .trainer-photo img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 3px solid #116062;
+        margin-bottom: 15px;
+    }
+
+    .trainer-info p {
+        margin: 5px 0;
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    .trainer-actions {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .btn-edit {
+        background: #116062;
+        padding: 8px 18px;
+        color: #fff;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+        .btn-edit:hover {
+            background: #0d4d50;
+            color: #fff;
+        }
+
+    .btn-delete {
+        background: #b30000;
+        padding: 8px 18px;
+        color: #fff;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+        .btn-delete:hover {
+            background: #800000;
+            color: #fff;
+        }
+</style>

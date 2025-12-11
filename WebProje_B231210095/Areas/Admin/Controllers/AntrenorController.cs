@@ -53,24 +53,28 @@ namespace WebProje_B231210095.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Antrenors/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AdSoyad,Uzmanlik,Biyografi,SalonId")] Antrenor antrenor)
+        public async Task<IActionResult> Create(Antrenor antrenor)
         {
-            if (ModelState.IsValid)
+            // Tek salon olduğu için sabitliyoruz
+            antrenor.SalonId = 1;
+
+            if (!ModelState.IsValid)
             {
-                _context.Add(antrenor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Hata varsa formu tekrar göster
+                return View(antrenor);
             }
-            ViewData["SalonId"] = new SelectList(_context.Salonlar, "Id", "Ad", antrenor.SalonId);
-            return View(antrenor);
+
+            _context.Antrenorler.Add(antrenor);
+            await _context.SaveChangesAsync();
+
+            // Kayıt başarılıysa Admin Dashboard'a dön
+            return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
         }
 
-        // GET: Admin/Antrenors/Edit/5zmanlik,Biyografi,Salon
+
+        // GET: Admin/Antrenors/Edit/5zmanlik,Salon
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -92,7 +96,7 @@ namespace WebProje_B231210095.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AdSoyad,Uzmanlik,Biyografi,SalonId")] Antrenor antrenor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,AdSoyad,Uzmanlik,SalonId")] Antrenor antrenor)
         {
             if (id != antrenor.Id)
             {
