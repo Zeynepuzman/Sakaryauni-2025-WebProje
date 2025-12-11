@@ -96,7 +96,7 @@ namespace WebProje_B231210095.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AdSoyad,Uzmanlik,SalonId")] Antrenor antrenor)
+        public async Task<IActionResult> Edit(int id, Antrenor antrenor)
         {
             if (id != antrenor.Id)
             {
@@ -123,7 +123,7 @@ namespace WebProje_B231210095.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SalonId"] = new SelectList(_context.Salonlar, "Id", "Ad", antrenor.SalonId);
+
             return View(antrenor);
         }
 

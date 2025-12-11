@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebProje_B231210095.Models.Uye>
+
+@{
+    ViewData["Title"] = "Üye Yönetimi";
+}
+
+<h2 class="text-center fw-bold mt-4 mb-5">Üye Yönetimi</h2>
+
+<div class="container">
+    <div class="row g-4 justify-content-center">
+
+        @foreach (var user in Model)
+        {
+            <div class="col-md-5">
+                <div class="uye-card shadow p-4 bg-white">
+
+                    <p><strong>Ad Soyad:</strong> @user.AdSoyad</p>
+                    <p><strong>Email:</strong> @user.Email</p>
+                    <p><strong>Telefon:</strong> @user.PhoneNumber</p>
+                    <p><strong>Yaş:</strong> @user.Yas</p>
+                    <p><strong>Boy:</strong> @user.Boy</p>
+                    <p><strong>Kilo:</strong> @user.Kilo</p>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="Edit" asp-route-id="@user.Id"
+                           class="btn custom-btn px-4 rounded-pill">
+                            Düzenle
+                        </a>
+
+                        <a asp-action="Delete" asp-route-id="@user.Id"
+                           class="btn btn-danger px-4 rounded-pill uye-sil-btn"
+                           onclick="return confirm('Bu üyeyi silmek istediğinize emin misiniz?');">
+                            Sil
+                        </a>
+                      
+
+                    </div>
+
+                </div>
+            </div>
+
+        }
+
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" asp-controller="Dashboard" asp-area="Admin"
+           class="btn btn-outline-secondary px-4">
+            ← Geri Dön
+        </a>
+    </div>
+</div>
+
+<style>
+    /* Üye kartlarını oval yap */
+    .uye-card {
+        border-radius: 25px; /* köşe yuvarlaklığı */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    /* Sil butonu gerçekten hap gibi olsun */
+    .uye-sil-btn {
+        border-radius: 999px !important; /* ne varsa ezer, tam yuvarlak yapar */
+        min-width: 80px;
+        text-align: center;
+    }
+</style>

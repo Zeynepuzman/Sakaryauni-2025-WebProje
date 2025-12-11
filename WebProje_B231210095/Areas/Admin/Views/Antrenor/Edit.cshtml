@@ -1,41 +1,58 @@
 ﻿@model WebProje_B231210095.Models.Antrenor
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Antrenör Düzenle";
 }
 
-<h1>Edit</h1>
+<div class="container mt-5" style="max-width: 650px;">
+    <h2 class="text-center fw-bold mb-4">Antrenör Düzenle</h2>
 
-<h4>Antrenor</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="AdSoyad" class="control-label"></label>
-                <input asp-for="AdSoyad" class="form-control" />
-                <span asp-validation-for="AdSoyad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Uzmanlik" class="control-label"></label>
-                <input asp-for="Uzmanlik" class="form-control" />
-                <span asp-validation-for="Uzmanlik" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="SalonId" value="1" />
+    <form asp-action="Edit" asp-controller="Antrenor" asp-area="Admin" method="post" class="shadow p-4 rounded bg-white">
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <!-- Ad Soyad -->
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Ad Soyad</label>
+            <input asp-for="AdSoyad" class="form-control" placeholder="Ad Soyad giriniz" />
+            <span asp-validation-for="AdSoyad" class="text-danger"></span>
+        </div>
+
+        <!-- Uzmanlık -->
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Uzmanlık</label>
+            <input asp-for="Uzmanlik" class="form-control" placeholder="Ör: Fitness, Pilates..." />
+            <span asp-validation-for="Uzmanlik" class="text-danger"></span>
+        </div>
+
+        <!-- Telefon -->
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Telefon</label>
+            <input asp-for="Telefon" class="form-control" placeholder="Telefon numarası" />
+            <span asp-validation-for="Telefon" class="text-danger"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Email</label>
+            <input asp-for="Email" class="form-control" placeholder="Email adresi" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <!-- Salon ID (Sabit) -->
+        <input type="hidden" asp-for="SalonId" value="1" />
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-action="Index" class="btn btn-outline-secondary">← Geri Dön</a>
+            <button type="submit" class="btn custom-btn px-4">Kaydet</button>
+        </div>
+
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_ValidationScriptsPartial" />
 }

@@ -49,12 +49,17 @@ namespace WebProje_B231210095.Areas.Identity.Pages.Account
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        // 🔥 BURAYA EKSTRA FIELDS EKLİYORUZ
         public class InputModel
         {
             [Required]
             [Display(Name = "Ad Soyad")]
             public string AdSoyad { get; set; }
+
+            [Required]
+            [Phone]
+            [Display(Name = "Telefon No")]
+            public string PhoneNumber { get; set; }
+
 
             [Display(Name = "Yaş")]
             public int? Yas { get; set; }
@@ -105,6 +110,7 @@ namespace WebProje_B231210095.Areas.Identity.Pages.Account
 
                 // BURADA EKSTRA ALANLARI USER OBJESİNE ATIYORUZ
                 user.AdSoyad = Input.AdSoyad;
+                user.PhoneNumber = Input.PhoneNumber;
                 user.Yas = Input.Yas;
                 user.Boy = Input.Boy;
                 user.Kilo = Input.Kilo;

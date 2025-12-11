@@ -54,7 +54,7 @@ app.Run();
 
 static async Task CreateDefaultAdminAsync(WebApplication app)
 {
-    Console.WriteLine("⚡ Admin oluşturma metodu çalıştı!");
+    Console.WriteLine(" Admin oluşturma metodu çalıştı!");
 
     using var scope = app.Services.CreateScope();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -71,7 +71,7 @@ static async Task CreateDefaultAdminAsync(WebApplication app)
 
     if (existingUser == null)
     {
-        Console.WriteLine("⚡ Admin kullanıcısı oluşturuluyor...");
+        Console.WriteLine(" Admin kullanıcısı oluşturuluyor...");
 
         var admin = new Uye
         {
@@ -91,18 +91,18 @@ static async Task CreateDefaultAdminAsync(WebApplication app)
             await userManager.UpdateAsync(admin);
             await userManager.AddToRoleAsync(admin, "Admin");
 
-            Console.WriteLine("✔ Admin başarıyla oluşturuldu (şifre doğrulama atlandı)!");
+            Console.WriteLine(" Admin başarıyla oluşturuldu (şifre doğrulama atlandı)!");
         }
         else
         {
-            Console.WriteLine("❌ Admin oluşturulamadı:");
+            Console.WriteLine(" Admin oluşturulamadı:");
             foreach (var err in createUser.Errors)
                 Console.WriteLine(err.Description);
         }
     }
     else
     {
-        Console.WriteLine("⚡ Admin zaten mevcut.");
+        Console.WriteLine(" Admin zaten mevcut.");
     }
 }
 

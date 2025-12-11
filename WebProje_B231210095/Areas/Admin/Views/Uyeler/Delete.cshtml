@@ -1,0 +1,54 @@
+﻿@model WebProje_B231210095.Models.Uye
+
+@{
+    ViewData["Title"] = "Üye Sil";
+}
+
+<div class="container mt-5">
+
+    <div class="shadow p-5 rounded bg-white mx-auto" style="max-width: 600px;">
+
+        <h3 class="text-center text-danger fw-bold mb-4">
+            Bu üyeyi silmek istediğine emin misin?
+        </h3>
+
+        <div class="mb-3">
+            <strong>Ad Soyad:</strong> @Model.AdSoyad
+        </div>
+
+        <div class="mb-3">
+            <strong>Email:</strong> @Model.Email
+        </div>
+
+        <div class="mb-3">
+            <strong>Telefon:</strong> @Model.PhoneNumber
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+
+            <a asp-action="Index"
+               class="btn btn-secondary px-4">
+                ← Vazgeç
+            </a>
+
+            <form method="post">
+                <button type="submit" class="btn btn-danger px-4">
+                    Sil
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .btn-danger {
+        border-radius: 50px;
+    }
+
+    .btn-secondary {
+        border-radius: 50px;
+    }
+</style>
