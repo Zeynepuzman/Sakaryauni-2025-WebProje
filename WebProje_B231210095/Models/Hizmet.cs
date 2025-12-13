@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebProje_B231210095.Models
 {
@@ -14,21 +15,22 @@ namespace WebProje_B231210095.Models
 
         public int SureDakika { get; set; }
 
-        // Ücret decimal olduğuna precision ekledik
-        [Precision(18, 2)]
-        public decimal Ucret { get; set; }
-
         [StringLength(500)]
         public string Aciklama { get; set; }
 
         // Her hizmet bir salona bağlıdır
+        //FK
         public int SalonId { get; set; }
+
+        [ValidateNever]
         public Salon Salon { get; set; }
 
         // Many-to-many (Hizmet - Antrenör)
+        [ValidateNever]
         public ICollection<AntrenorHizmet> AntrenorHizmetler { get; set; }
 
         // Hizmete bağlı randevular
+        [ValidateNever]
         public ICollection<Randevu> Randevular { get; set; }
     }
 }

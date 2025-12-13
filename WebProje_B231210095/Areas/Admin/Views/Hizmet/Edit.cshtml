@@ -1,0 +1,46 @@
+﻿@model WebProje_B231210095.Models.Hizmet
+
+@{
+    ViewData["Title"] = "Hizmet Düzenle";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center fw-bold mb-4">Hizmet Düzenle</h2>
+
+    <div class="card shadow-sm p-5 hizmet-card mx-auto" style="max-width: 700px;">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Hizmet Adı</label>
+                <input asp-for="Ad" class="form-control" />
+                <span asp-validation-for="Ad" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Süre (Dakika)</label>
+                <input asp-for="SureDakika" class="form-control" />
+                <span asp-validation-for="SureDakika" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Açıklama</label>
+                <textarea asp-for="Aciklama" class="form-control" rows="4"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                    ← Geri Dön
+                </a>
+
+                <button type="submit" class="btn btn-powerzone px-5 rounded-pill">
+                    Kaydet
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

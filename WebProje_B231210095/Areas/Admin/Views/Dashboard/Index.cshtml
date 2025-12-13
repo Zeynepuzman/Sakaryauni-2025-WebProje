@@ -46,9 +46,19 @@
                 <button class="menu-toggle manage-btn" data-target="#hizmetMenu">Yönet</button>
 
                 <div id="hizmetMenu" class="submenu">
-                    <a href="/Admin/Hizmet" class="submenu-item">Listele</a>
-                    <a href="/Admin/Hizmet/Create" class="submenu-item">Ekle</a>
+                    <a asp-area="Admin" asp-controller="Hizmet" asp-action="Index" class="submenu-item">
+                        Hizmetleri Yönet
+                    </a>
+
+                    <a asp-area="Admin" asp-controller="Hizmet" asp-action="Create" class="submenu-item">
+                        Hizmet Ekle
+                    </a>
+
+                    <a asp-area="Admin" asp-controller="Paket" asp-action="Index" class="submenu-item">
+                        Paketleri Yönet
+                    </a>
                 </div>
+
             </div>
         </div>
 

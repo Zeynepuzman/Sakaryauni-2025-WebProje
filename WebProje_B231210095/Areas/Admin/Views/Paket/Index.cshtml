@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebProje_B231210095.Models.Paket>
+
+<h2 class="text-center fw-bold mb-4">Paket Yönetimi</h2>
+
+<div class="text-end mb-4">
+    <a asp-action="Create" class="btn btn-success rounded-pill px-4">
+        + Yeni Paket
+    </a>
+</div>
+
+<div class="row g-4">
+    @foreach (var paket in Model)
+    {
+        <div class="col-md-6">
+            <div class="shadow p-4 rounded bg-white h-100">
+
+                <h5 class="fw-bold text-success">@paket.Ad</h5>
+
+                <p><strong>Hizmet:</strong> @paket.Hizmet?.Ad</p>
+                <p><strong>Süre:</strong> @paket.SureGun gün</p>
+                <p><strong>Ücret:</strong> @paket.Ucret ₺</p>
+
+                @if (!string.IsNullOrEmpty(paket.Aciklama))
+                {
+                    <p class="text-muted">@paket.Aciklama</p>
+                }
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Edit"
+                       asp-route-id="@paket.Id"
+                       class="btn btn-warning rounded-pill px-4">
+                        Düzenle
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@paket.Id"
+                       class="btn btn-danger rounded-pill px-4">
+                        Sil
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

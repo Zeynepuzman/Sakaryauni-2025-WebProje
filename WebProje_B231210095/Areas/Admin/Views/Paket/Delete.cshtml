@@ -1,0 +1,24 @@
+﻿@model WebProje_B231210095.Models.Paket
+
+<h2 class="text-center text-danger fw-bold mb-4">Paketi Sil</h2>
+
+<div class="container" style="max-width:600px;">
+    <div class="shadow p-4 rounded bg-white">
+
+        <p><strong>Paket:</strong> @Model.Ad</p>
+        <p><strong>Hizmet:</strong> @Model.Hizmet?.Ad</p>
+        <p><strong>Ücret:</strong> @Model.Ucret ₺</p>
+
+        <form method="post" class="mt-4">
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    ← Vazgeç
+                </a>
+                <button type="submit" class="btn btn-danger rounded-pill px-4">
+                    Sil
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>

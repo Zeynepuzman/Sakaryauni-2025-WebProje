@@ -19,6 +19,8 @@ namespace WebProje_B231210095.Data
         public DbSet<Antrenor> Antrenorler { get; set; }
         public DbSet<AntrenorHizmet> AntrenorHizmetler { get; set; }
         public DbSet<Randevu> Randevular { get; set; }
+        public DbSet<Paket> Paketler { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
