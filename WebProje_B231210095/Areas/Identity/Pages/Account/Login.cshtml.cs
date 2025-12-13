@@ -142,8 +142,15 @@ namespace WebProje_B231210095.Areas.Identity.Pages.Account
                     return Redirect("/Admin/Dashboard/Index");
                 }
 
-                // Değilse normal kullanıcı sayfasına yönlendir
-                return Redirect("/Home/Index");
+                // Admin kontrolü
+                if (roles.Contains("Admin"))
+                {
+                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                }
+             
+                // fallback (ilk giriş vs.)  
+                // Hiç returnUrl yoksa → kullanıcı dashboard
+                return Redirect("/Uye/Dashboard");
 
             }
 

@@ -40,6 +40,7 @@ namespace WebProje_B231210095.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Paket paket)
         {
+            Console.WriteLine("PAKET CREATE POST ÇALIŞTI");
             if (!ModelState.IsValid)
             {
                 ViewBag.Hizmetler = new SelectList(

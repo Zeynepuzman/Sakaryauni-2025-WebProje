@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebProje_B231210095.Models
 {
@@ -19,6 +20,10 @@ namespace WebProje_B231210095.Models
         public string Aciklama { get; set; }
 
         public int HizmetId { get; set; }
+
+        [ValidateNever]
         public Hizmet Hizmet { get; set; }
+        public int SalonId { get; set; }
+
     }
 }

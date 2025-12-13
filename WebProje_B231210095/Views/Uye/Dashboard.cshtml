@@ -1,0 +1,52 @@
+﻿@model WebProje_B231210095.Models.Uye
+
+@{
+    ViewData["Title"] = "Kullanıcı Paneli";
+}
+
+<div class="container mt-5">
+
+    <h2 class="fw-bold mb-4">
+        Hoş geldin, @Model.AdSoyad 👋
+    </h2>
+
+    <div class="row g-4">
+
+        <!-- PROFİL -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center">
+                <h5 class="fw-bold">Profilim</h5>
+                <p class="text-muted">Bilgilerini güncelle</p>
+
+                <a asp-controller="Uye" asp-action="Edit" class="btn btn-powerzone rounded-pill">
+                    Profilimi Düzenle
+                </a>
+            </div>
+        </div>
+
+        <!-- PAKETLER -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center">
+                <h5 class="fw-bold">Paketler</h5>
+                <p class="text-muted">Sana uygun paketleri incele</p>
+                <a asp-controller="Paket" asp-action="Index" class="btn btn-powerzone">
+                    Paketleri Gör
+                </a>
+
+            </div>
+        </div>
+
+        <!-- RANDEVU -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center">
+                <h5 class="fw-bold">Randevu</h5>
+                <p class="text-muted">Yakında aktif olacak</p>
+
+                <button class="btn btn-secondary rounded-pill px-4" disabled>
+                    Randevu Al
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

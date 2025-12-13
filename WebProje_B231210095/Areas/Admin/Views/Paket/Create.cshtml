@@ -3,7 +3,12 @@
 <h2 class="text-center fw-bold mb-4">Yeni Paket Ekle</h2>
 
 <div class="container" style="max-width:650px;">
-    <form method="post" class="shadow p-4 rounded bg-white">
+    <form asp-area="Admin"
+          asp-controller="Paket"
+          asp-action="Create"
+          method="post"
+          class="shadow p-4 rounded bg-white">
+
 
         <div class="mb-3">
             <label class="form-label fw-semibold">Paket Adı</label>
@@ -38,7 +43,7 @@
             <a asp-action="Index" class="btn btn-outline-secondary">
                 ← Geri Dön
             </a>
-            <button type="submit" class="btn btn-success rounded-pill px-4">
+            <button type="submit" class="btn btn-powerzone rounded-pill px-4">
                 Kaydet
             </button>
         </div>

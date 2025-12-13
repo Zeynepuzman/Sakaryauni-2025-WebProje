@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProje_B231210095.Data;
 
@@ -11,9 +12,11 @@ using WebProje_B231210095.Data;
 namespace WebProje_B231210095.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251213213612_AddPaketTable")]
+    partial class AddPaketTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -430,39 +433,6 @@ namespace WebProje_B231210095.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("WebProje_B231210095.Models.UyePaket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("AktifMi")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("BaslangicTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("BitisTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PaketId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UyeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaketId");
-
-                    b.HasIndex("UyeId");
-
-                    b.ToTable("UyePaketler");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -589,25 +559,6 @@ namespace WebProje_B231210095.Migrations
                     b.Navigation("Antrenor");
 
                     b.Navigation("Hizmet");
-
-                    b.Navigation("Uye");
-                });
-
-            modelBuilder.Entity("WebProje_B231210095.Models.UyePaket", b =>
-                {
-                    b.HasOne("WebProje_B231210095.Models.Paket", "Paket")
-                        .WithMany()
-                        .HasForeignKey("PaketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebProje_B231210095.Models.Uye", "Uye")
-                        .WithMany()
-                        .HasForeignKey("UyeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Paket");
 
                     b.Navigation("Uye");
                 });

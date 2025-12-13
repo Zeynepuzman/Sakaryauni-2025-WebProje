@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebProje_B231210095.Models.Paket>
+
+@{
+    ViewData["Title"] = "Paketler";
+}
+
+<div class="container mt-5">
+    <h2 class="fw-bold mb-4 text-center">Paketlerimiz</h2>
+
+    <div class="row g-4">
+        @foreach (var paket in Model)
+        {
+            <div class="col-md-4">
+                <div class="card shadow-sm p-4 h-100 rounded-4">
+
+                    <h5 class="fw-bold text-teal">@paket.Ad</h5>
+
+                    <p class="mt-2">
+                        <strong>Hizmet:</strong> @paket.Hizmet.Ad
+                    </p>
+
+                    <p>
+                        <strong>Süre:</strong> @paket.SureGun gün
+                    </p>
+
+                    <p>
+                        <strong>Ücret:</strong> @paket.Ucret ₺
+                    </p>
+
+                    <p class="text-muted">
+                        @paket.Aciklama
+                    </p>
+
+                    <div class="mt-auto">
+                        <a asp-controller="Paket"
+                           asp-action="Sec"
+                           asp-route-id="@paket.Id"
+                           class="btn btn-powerzone rounded-pill">
+                            Paketi Seç
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="mt-4">
+        <a asp-controller="Uye" asp-action="Dashboard"
+           class="btn btn-outline-secondary">
+            ← Geri Dön
+        </a>
+    </div>
+</div>
