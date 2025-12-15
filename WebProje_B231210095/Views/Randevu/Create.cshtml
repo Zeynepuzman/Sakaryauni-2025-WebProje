@@ -1,0 +1,56 @@
+﻿@model WebProje_B231210095.Models.ViewModels.RandevuCreateVM
+
+<h2 class="fw-bold mb-4 text-center">Randevu Al</h2>
+
+<div class="container" style="max-width:700px;">
+    <div class="card shadow-sm p-4 rounded-4">
+
+        <div class="mb-3">
+            <label class="fw-semibold">Aktif Paket</label>
+            <input class="form-control" value="@ViewBag.PaketAdi" disabled />
+        </div>
+
+        <div class="mb-3">
+            <label class="fw-semibold">Hizmet</label>
+            <input class="form-control" value="@ViewBag.HizmetAdi" disabled />
+        </div>
+
+        <form method="post">
+
+            <div class="mb-3">
+                <label class="fw-semibold">Antrenör</label>
+
+                <select asp-for="AntrenorId"
+                        asp-items="ViewBag.Antrenorler"
+                        class="form-select">
+                    <option value="">-- Antrenör Seçiniz --</option>
+                </select>
+
+                <span asp-validation-for="AntrenorId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="fw-semibold">Tarih</label>
+                <input asp-for="Tarih" type="date" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label class="fw-semibold">Saat</label>
+                <input asp-for="Saat" type="time" class="form-control" />
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-controller="Uye" asp-action="Dashboard"
+                   class="btn btn-outline-secondary">
+                    ← Geri Dön
+                </a>
+
+                <button type="submit"
+                        class="btn btn-powerzone rounded-pill px-4">
+                    Randevu Oluştur
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

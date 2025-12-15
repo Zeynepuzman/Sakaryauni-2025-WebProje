@@ -104,59 +104,40 @@ namespace WebProje_B231210095.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            if (!ModelState.IsValid)
+                return Page();
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
 
-            if (ModelState.IsValid)
+            if (user == null)
             {
-                // 1) Kullanıcı email’e göre aranır
-                var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
-
-                if (user == null)
-                {
-                    // Email yok → kullanıcı bulunamadı
-                    ModelState.AddModelError(string.Empty, "Bu email adresi ile kayıt bulunamadı. Lütfen önce üye olunuz.");
-                    return Page();
-                }
-
-                // 2) Şifre kontrol edilir
-                var passwordCorrect = await _signInManager.UserManager.CheckPasswordAsync(user, Input.Password);
-
-                if (!passwordCorrect)
-                {
-                    // Email var ama şifre yanlış
-                    ModelState.AddModelError(string.Empty, "Şifre hatalı. Lütfen tekrar deneyiniz.");
-                    return Page();
-                }
-
-                // 3) Giriş başarılı → Identity login işlemi yapılır
-                await _signInManager.SignInAsync(user, Input.RememberMe);
-
-                // Kullanıcının rollerini al
-                var roles = await _signInManager.UserManager.GetRolesAsync(user);
-
-                // Eğer kullanıcı Admin ise admin paneline yönlendir
-                if (roles.Contains("Admin"))
-                {
-                    return Redirect("/Admin/Dashboard/Index");
-                }
-
-                // Admin kontrolü
-                if (roles.Contains("Admin"))
-                {
-                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
-                }
-             
-                // fallback (ilk giriş vs.)  
-                // Hiç returnUrl yoksa → kullanıcı dashboard
-                return Redirect("/Uye/Dashboard");
-
+                ModelState.AddModelError(string.Empty, "Bu email adresi ile kayıt bulunamadı.");
+                return Page();
             }
 
-            // Model geçersizse formu tekrar göster
-            return Page();
+            var passwordCorrect = await _signInManager.UserManager.CheckPasswordAsync(user, Input.Password);
+
+            if (!passwordCorrect)
+            {
+                ModelState.AddModelError(string.Empty, "Şifre hatalı.");
+                return Page();
+            }
+
+            await _signInManager.SignInAsync(user, Input.RememberMe);
+
+            var roles = await _signInManager.UserManager.GetRolesAsync(user);
+
+            if (roles.Contains("Admin"))
+            {
+                return Redirect("/Admin/Dashboard/Index");
+            }
+
+            // Normal kullanıcı
+            return Redirect("/Uye/Dashboard");
+
+
         }
+
 
     }
 }

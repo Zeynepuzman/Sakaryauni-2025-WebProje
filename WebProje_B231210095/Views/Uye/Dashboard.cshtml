@@ -12,6 +12,43 @@
 
     <div class="row g-4">
 
+        @if (ViewBag.AktifPaket != null)
+        {
+            <div class="card shadow-sm p-4 mb-4 rounded-4">
+                <h5 class="fw-bold text-teal mb-2">Aktif Paketiniz</h5>
+
+                <p><strong>Paket:</strong> @ViewBag.AktifPaket.PaketAdi</p>
+                <p><strong>Kalan Gün:</strong> @ViewBag.AktifPaket.KalanGun gün</p>
+
+                <div class="d-flex gap-3 mt-3">
+                    <a asp-controller="Randevu"
+                       asp-action="Create"
+                       class="btn btn-powerzone rounded-pill px-4">
+                        Randevu Al
+                    </a>
+
+                    <a asp-controller="Paket"
+                       asp-action="Index"
+                       class="btn btn-outline-powerzone rounded-pill px-4">
+                        Paket Değiştir
+                    </a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card shadow-sm p-4 mb-4 rounded-4">
+                <h5 class="fw-bold text-danger">Aktif Paketiniz Yok</h5>
+                <p>Randevu alabilmek için bir paket seçmelisiniz.</p>
+
+                <a asp-controller="Paket"
+                   asp-action="Index"
+                   class="btn btn-powerzone rounded-pill px-4">
+                    Paket Seç
+                </a>
+            </div>
+        }
+
         <!-- PROFİL -->
         <div class="col-md-4">
             <div class="card shadow-sm p-4 text-center">
@@ -48,5 +85,6 @@
             </div>
         </div>
 
+       
     </div>
 </div>

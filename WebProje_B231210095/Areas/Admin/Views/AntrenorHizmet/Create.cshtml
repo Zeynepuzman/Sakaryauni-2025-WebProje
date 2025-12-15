@@ -1,0 +1,36 @@
+﻿@model WebProje_B231210095.Models.AntrenorHizmet
+
+<h2 class="fw-bold text-center mb-4">
+    Antrenör - Hizmet Eşleştir
+</h2>
+
+<div class="container" style="max-width:600px;">
+    <form method="post" class="card shadow p-4 rounded-4">
+
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label class="fw-semibold">Antrenör</label>
+            <select asp-for="AntrenorId"
+                    asp-items="ViewBag.Antrenorler"
+                    class="form-select">
+                <option value="">-- Antrenör Seç --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="fw-semibold">Hizmet</label>
+            <select asp-for="HizmetId"
+                    asp-items="ViewBag.Hizmetler"
+                    class="form-select">
+                <option value="">-- Hizmet Seç --</option>
+            </select>
+        </div>
+
+        <button type="submit"
+                class="btn btn-powerzone rounded-pill w-100">
+            Eşleştir
+        </button>
+
+    </form>
+</div>

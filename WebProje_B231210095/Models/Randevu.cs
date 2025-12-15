@@ -1,38 +1,40 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebProje_B231210095.Models
 {
-    // Randevu bilgilerini tutar
     public class Randevu
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
         public DateTime TarihSaat { get; set; }
 
+        [Required]
         public int SureDakika { get; set; }
 
-        // Ücret için precision ekledik
-        [Precision(18, 2)]
-        public decimal Ucret { get; set; }
+        [StringLength(30)]
+        public string Durum { get; set; } // Bekliyor / Onaylandı / İptal
 
-        [StringLength(50)]
-        public string Durum { get; set; } // Onaylandı / Bekliyor / İptal
-
-        // İlişkiler
 
         // Üye
         public string UyeId { get; set; }
         public Uye Uye { get; set; }
 
         // Antrenör
+        [Required]
         public int AntrenorId { get; set; }
         public Antrenor Antrenor { get; set; }
 
         // Hizmet
         public int HizmetId { get; set; }
+
+        [ValidateNever]
         public Hizmet Hizmet { get; set; }
+        public decimal? Ucret { get; set; }
     }
 }
