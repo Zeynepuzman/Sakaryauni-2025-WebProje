@@ -55,14 +55,12 @@ public class RandevuController : Controller
         return View();
     }
 
-    // ==============================
     // POST: Randevu/Create
-    // ==============================
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(RandevuCreateVM model)
     {
-
         if (!ModelState.IsValid)
             return View(model);
 
@@ -74,19 +72,37 @@ public class RandevuController : Controller
             .FirstOrDefault(x => x.UyeId == user.Id && x.AktifMi);
 
         if (aktifPaket == null)
-        {
             return RedirectToAction("Dashboard", "Uye");
+
+        //  Hizmet bilgisi (süre için)
+        var hizmet = aktifPaket.Paket.Hizmet;
+        if (hizmet == null)
+        {
+            ModelState.AddModelError("", "Hizmet bilgisi bulunamadı.");
+            return View(model);
         }
 
-        var tarihSaat = model.Tarih.Date + model.Saat;
+        var baslangic = model.Tarih.Date + model.Saat;
+        var bitis = baslangic.AddMinutes(hizmet.SureDakika);
 
+        //  ASIL ÇAKIŞMA KONTROLÜ
+    
         bool doluMu = _context.Randevular.Any(r =>
-            r.AntrenorId == model.AntrenorId &&
-            r.TarihSaat == tarihSaat);
+    r.AntrenorId == model.AntrenorId &&
+
+    // İptal olmayan randevular doludur
+    r.Durum != "İptal" &&
+
+    // Zaman çakışması
+    r.TarihSaat < bitis &&
+    r.TarihSaat.AddMinutes(r.SureDakika) > baslangic
+);
+
 
         if (doluMu)
         {
-            ModelState.AddModelError("", "Seçilen tarih ve saatte bu antrenörün başka bir randevusu vardır.");
+            ModelState.AddModelError("",
+                "Seçilen antrenör bu saat aralığında doludur. Lütfen başka bir saat seçiniz.");
 
             var antrenorler = _context.AntrenorHizmetler
                 .Where(x => x.HizmetId == aktifPaket.Paket.HizmetId)
@@ -100,23 +116,15 @@ public class RandevuController : Controller
             return View(model);
         }
 
-        // 🔹 EKLENEN KISIM
-        var hizmet = _context.Hizmetler
-            .FirstOrDefault(h => h.Id == aktifPaket.Paket.HizmetId);
 
-        if (hizmet == null)
-        {
-            ModelState.AddModelError("", "Hizmet bilgisi bulunamadı.");
-            return View(model);
-        }
-
+        //  Randevu oluştur
         var randevu = new Randevu
         {
             UyeId = user.Id,
             AntrenorId = model.AntrenorId,
             HizmetId = aktifPaket.Paket.HizmetId,
-            TarihSaat = tarihSaat,
-            SureDakika = hizmet.SureDakika, 
+            TarihSaat = baslangic,
+            SureDakika = hizmet.SureDakika,
             Ucret = aktifPaket.Paket.Ucret,
             Durum = "Bekliyor"
         };
@@ -126,4 +134,5 @@ public class RandevuController : Controller
 
         return RedirectToAction("Dashboard", "Uye");
     }
+
 }

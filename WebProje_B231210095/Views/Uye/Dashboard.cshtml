@@ -55,7 +55,9 @@
                 <h5 class="fw-bold">Profilim</h5>
                 <p class="text-muted">Bilgilerini güncelle</p>
 
-                <a asp-controller="Uye" asp-action="Edit" class="btn btn-powerzone rounded-pill">
+                <a asp-controller="Uye"
+                   asp-action="Edit"
+                   class="btn btn-powerzone rounded-pill">
                     Profilimi Düzenle
                 </a>
             </div>
@@ -66,10 +68,12 @@
             <div class="card shadow-sm p-4 text-center">
                 <h5 class="fw-bold">Paketler</h5>
                 <p class="text-muted">Sana uygun paketleri incele</p>
-                <a asp-controller="Paket" asp-action="Index" class="btn btn-powerzone">
+
+                <a asp-controller="Paket"
+                   asp-action="Index"
+                   class="btn btn-powerzone">
                     Paketleri Gör
                 </a>
-
             </div>
         </div>
 
@@ -77,14 +81,58 @@
         <div class="col-md-4">
             <div class="card shadow-sm p-4 text-center">
                 <h5 class="fw-bold">Randevu</h5>
-                <p class="text-muted">Yakında aktif olacak</p>
+                <p class="text-muted">Randevularını görüntüle</p>
 
-                <button class="btn btn-secondary rounded-pill px-4" disabled>
-                    Randevu Al
-                </button>
+                <a asp-controller="Uye"
+                   asp-action="Dashboard"
+                   class="btn btn-outline-powerzone rounded-pill px-4">
+                    Aşağıda Gör
+                </a>
             </div>
         </div>
 
-       
     </div>
+
+    <!-- RANDEVULARIM -->
+    <div class="mt-5">
+        <h4 class="fw-bold mb-3">Randevularım</h4>
+
+        @if (ViewBag.Randevular != null && ViewBag.Randevular.Count > 0)
+        {
+            <div class="card shadow-sm p-4 rounded-4">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tarih</th>
+                            <th>Saat</th>
+                            <th>Antrenör</th>
+                            <th>Hizmet</th>
+                            <th>Süre</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in ViewBag.Randevular)
+                        {
+                            <tr>
+                                <td>@r.TarihSaat.ToString("dd.MM.yyyy")</td>
+                                <td>@r.TarihSaat.ToString("HH:mm")</td>
+                                <td>@r.Antrenor?.AdSoyad</td>
+                                <td>@r.Hizmet?.Ad</td>
+                                <td>@r.SureDakika dk</td>
+                                <td>@r.Durum</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info text-center">
+                Henüz alınmış bir randevunuz yok.
+            </div>
+        }
+    </div>
+
 </div>

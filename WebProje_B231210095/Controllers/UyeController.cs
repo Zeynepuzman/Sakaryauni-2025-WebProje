@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebProje_B231210095.Data;
 using WebProje_B231210095.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 [Authorize]
 public class UyeController : Controller
@@ -19,24 +21,34 @@ public class UyeController : Controller
         _context = context;
     }
 
-    public async Task<IActionResult> Dashboard()
-    {
-        var user = await _userManager.GetUserAsync(User);
+   public async Task<IActionResult> Dashboard()
+{
+    var user = await _userManager.GetUserAsync(User);
 
-        var aktifPaket = _context.UyePaketler
-            .Where(x => x.UyeId == user.Id && x.AktifMi)
-            .Select(x => new
-            {
-                PaketAdi = x.Paket.Ad,
-                BitisTarihi = x.BitisTarihi,
-                KalanGun = Math.Max(0, (x.BitisTarihi - DateTime.Now).Days)
-            })
-            .FirstOrDefault();
+    var aktifPaket = _context.UyePaketler
+        .Where(x => x.UyeId == user.Id && x.AktifMi)
+        .Select(x => new
+        {
+            PaketAdi = x.Paket.Ad,
+            BitisTarihi = x.BitisTarihi,
+            KalanGun = Math.Max(0, (x.BitisTarihi - DateTime.Now).Days)
+        })
+        .FirstOrDefault();
 
-        ViewBag.AktifPaket = aktifPaket;
+    ViewBag.AktifPaket = aktifPaket;
 
-        return View(user);
-    }
+    var randevular = _context.Randevular
+        .Where(r => r.UyeId == user.Id)
+        .Include(r => r.Antrenor)
+        .Include(r => r.Hizmet)
+        .OrderByDescending(r => r.TarihSaat)
+        .ToList();
+
+    ViewBag.Randevular = randevular;
+
+    return View(user);
+}
+
 
     public async Task<IActionResult> Edit()
     {
@@ -60,4 +72,5 @@ public class UyeController : Controller
 
         return RedirectToAction("Dashboard");
     }
+   
 }
