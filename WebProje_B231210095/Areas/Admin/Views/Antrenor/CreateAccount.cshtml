@@ -1,0 +1,28 @@
+﻿@model WebProje_B231210095.Models.Antrenor
+
+<h3>@Model.AdSoyad için Antrenör Hesabı Oluştur</h3>
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@error.ErrorMessage</div>
+        }
+    </div>
+}
+<form method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input name="email" class="form-control" value="@Model.Email"readonly />
+
+    </div>
+
+    <div class="mb-3">
+        <label>Şifre</label>
+        <input name="password" type="password" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Hesap Oluştur</button>
+</form>

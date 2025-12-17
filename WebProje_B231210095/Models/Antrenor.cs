@@ -23,6 +23,8 @@ namespace WebProje_B231210095.Models
 
         // Zorunlu salon id
         public int SalonId { get; set; }
+        //Login bağlantısı
+        public string UserId { get; set; }
 
         // Formdan değer gelmesini beklemediğimiz navigation property:
         [ValidateNever]

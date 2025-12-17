@@ -24,8 +24,26 @@
 
                     <!-- BUTONLAR -->
                     <div class="trainer-actions">
-                        <a href="/Admin/Antrenor/Edit/@item.Id" class="btn btn-edit">Düzenle</a>
-                        <a href="/Admin/Antrenor/Delete/@item.Id" class="btn btn-delete">Sil</a>
+                        <a href="/Admin/Antrenor/Edit/@item.Id" class="btn btn-edit">
+                            Düzenle
+                        </a>
+
+                        <a href="/Admin/Antrenor/Delete/@item.Id" class="btn btn-delete">
+                            Sil
+                        </a>
+
+                        @if (string.IsNullOrEmpty(item.UserId))
+                        {
+                            <a asp-action="CreateAccount"
+                               asp-route-id="@item.Id"
+                               class="btn btn-account">
+                                Hesap Oluştur
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Hesabı Var</span>
+                        }
                     </div>
 
                 </div>
@@ -98,4 +116,34 @@
             background: #800000;
             color: #fff;
         }
+
+    .btn-account {
+        background: #0f4c4c;
+        padding: 8px 18px;
+        color: #fff;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+        .btn-account:hover {
+            background: #0b3a3a;
+            color: #fff;
+        }
+
+    .btn-account {
+        background: #1aa179;
+        padding: 8px 18px;
+        color: #fff;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+        .btn-account:hover {
+            background: #148f6a;
+            color: #fff;
+        }
+
+
 </style>

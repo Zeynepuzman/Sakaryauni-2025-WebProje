@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using WebProje_B231210095.Data;
 using WebProje_B231210095.Models;
-using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,33 +46,44 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// ADMİN OLUŞTURMAYI ÇALIŞTIR!
-  await CreateDefaultAdminAsync(app);
+
+// ===============================
+// ROL + ADMIN SEED
+// ===============================
+await CreateRolesAndAdminAsync(app);
 
 app.Run();
 
 
-static async Task CreateDefaultAdminAsync(WebApplication app)
+// ===============================
+// METOTLAR
+// ===============================
+static async Task CreateRolesAndAdminAsync(WebApplication app)
 {
-    Console.WriteLine(" Admin oluşturma metodu çalıştı!");
-
     using var scope = app.Services.CreateScope();
+
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Uye>>();
 
-    // Admin rolü yoksa oluştur
-    if (!await roleManager.RoleExistsAsync("Admin"))
-        await roleManager.CreateAsync(new IdentityRole("Admin"));
+  
+    string[] roles = { "Admin", "Uye", "Antrenor" };
 
-    string adminEmail = "B231210095@hotmail.com";
-    string adminPassword = "sau";   // zayıf şifre
-
-    var existingUser = await userManager.FindByEmailAsync(adminEmail);
-
-    if (existingUser == null)
+    foreach (var role in roles)
     {
-        Console.WriteLine(" Admin kullanıcısı oluşturuluyor...");
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
 
+    // 2️⃣ Admin kullanıcı bilgileri (ÖDEVDE VERİLEN)
+    string adminEmail = "B231210095@hotmail.com";
+    string adminPassword = "sau";
+
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+    if (adminUser == null)
+    {
         var admin = new Uye
         {
             UserName = adminEmail,
@@ -80,67 +91,42 @@ static async Task CreateDefaultAdminAsync(WebApplication app)
             AdSoyad = "Sistem Admini"
         };
 
-        // Kullanıcıyı oluştur (şifresiz)
-        var createUser = await userManager.CreateAsync(admin);
-        if (createUser.Succeeded)
+        // ❗ ŞİFRESİZ CREATE (Identity kurallarını bypass etmek için)
+        var createResult = await userManager.CreateAsync(admin);
+
+        if (createResult.Succeeded)
         {
-            // Şifreyi manuel ekle → Validasyon devre dışı!
+            // ❗ ADMIN'E ÖZEL MANUEL HASH (ÖDEV GEREĞİ)
             var passwordHash = userManager.PasswordHasher.HashPassword(admin, adminPassword);
             admin.PasswordHash = passwordHash;
 
             await userManager.UpdateAsync(admin);
-            await userManager.AddToRoleAsync(admin, "Admin");
 
-            Console.WriteLine(" Admin başarıyla oluşturuldu (şifre doğrulama atlandı)!");
+            // Admin rolü ata
+            await userManager.AddToRoleAsync(admin, "Admin");
         }
         else
         {
-            Console.WriteLine(" Admin oluşturulamadı:");
-            foreach (var err in createUser.Errors)
-                Console.WriteLine(err.Description);
+            foreach (var error in createResult.Errors)
+            {
+                Console.WriteLine(error.Description);
+            }
         }
     }
     else
     {
-        Console.WriteLine(" Admin zaten mevcut.");
-    }
-}
-
-
-/*
-  Default Admin oluşturma metodu
-static async Task CreateDefaultAdminAsync(WebApplication app)
-{
-    using var scope = app.Services.CreateScope();
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Uye>>();
-
-    if (!await roleManager.RoleExistsAsync("Admin"))
-        await roleManager.CreateAsync(new IdentityRole("Admin"));
-
-    string adminEmail = "B2312100095@hotmail.com";
-    string adminPassword = "sau";
-
-    var existingUser = await userManager.FindByEmailAsync(adminEmail);
-
-    if (existingUser == null)
-    {
-        var adminUser = new Uye
+        // Admin varsa ama rolü yoksa garantiye al
+        if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
         {
-            UserName = adminEmail,
-            Email = adminEmail,
-            AdSoyad = "Sistem Admini"
-        };
-
-        var result = await userManager.CreateAsync(adminUser, adminPassword);
-
-        if (result.Succeeded)
             await userManager.AddToRoleAsync(adminUser, "Admin");
+        }
     }
 }
- */
 
 
+// ===============================
+// FAKE EMAIL SENDER
+// ===============================
 public class FakeEmailSender : IEmailSender
 {
     public Task SendEmailAsync(string email, string subject, string htmlMessage)

@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using WebProje_B231210095.Data;
 using WebProje_B231210095.Models;
+
+
 
 namespace WebProje_B231210095.Areas.Admin.Controllers
 {
@@ -14,10 +18,12 @@ namespace WebProje_B231210095.Areas.Admin.Controllers
     public class AntrenorController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Uye> _userManager;
 
-        public AntrenorController(ApplicationDbContext context)
+        public AntrenorController(ApplicationDbContext context, UserManager<Uye> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Admin/Antrenors
@@ -163,5 +169,60 @@ namespace WebProje_B231210095.Areas.Admin.Controllers
         {
             return _context.Antrenorler.Any(e => e.Id == id);
         }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult CreateAccount(int id)
+        {
+            var antrenor = _context.Antrenorler.Find(id);
+            if (antrenor == null) return NotFound();
+
+            return View(antrenor);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateAccount(int id, string email, string password)
+        {
+            var antrenor = await _context.Antrenorler.FindAsync(id);
+            if (antrenor == null)
+                return NotFound();
+
+            // Aynı email var mı?
+            var existingUser = await _userManager.FindByEmailAsync(email);
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("", "Bu email ile zaten bir kullanıcı var.");
+                return View(antrenor);
+            }
+
+            var user = new Uye
+            {
+                UserName = email,
+                Email = email,
+                AdSoyad = antrenor.AdSoyad
+            };
+
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError("", error.Description);
+
+                return View(antrenor); 
+            }
+
+            await _userManager.AddToRoleAsync(user, "Antrenor");
+
+            antrenor.UserId = user.Id;
+            _context.Update(antrenor);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+
+
     }
 }

@@ -1,0 +1,85 @@
+﻿@model List<WebProje_B231210095.Models.Randevu>
+
+@{
+    ViewData["Title"] = "Antrenör Paneli";
+    var antrenor = ViewBag.Antrenor as WebProje_B231210095.Models.Antrenor;
+}
+
+<div class="container mt-5">
+
+    <h2 class="fw-bold mb-4">
+        Hoş geldin, @antrenor.AdSoyad 👋
+    </h2>
+
+    <div class="card shadow-sm p-4 rounded-4 mb-4">
+        <p><strong>Uzmanlık:</strong> @antrenor.Uzmanlik</p>
+        <p><strong>E-posta:</strong> @antrenor.Email</p>
+    </div>
+
+    <h4 class="fw-bold mb-3">Randevularım</h4>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Henüz atanmış bir randevun yok.
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Tarih</th>
+                    <th>Saat</th>
+                    <th>Üye</th>
+                    <th>Hizmet</th>
+                    <th>Durum / İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>@r.TarihSaat.ToString("dd.MM.yyyy")</td>
+                        <td>@r.TarihSaat.ToString("HH:mm")</td>
+                        <td>@r.Uye.AdSoyad</td>
+                        <td>@r.Hizmet.Ad</td>
+                        <td>
+                            @if (r.Durum == "Bekliyor")
+                            {
+                                <form asp-action="Onayla" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@r.Id" />
+                                    <button class="btn btn-success btn-sm">
+                                        Onayla
+                                    </button>
+                                </form>
+
+                                <form asp-action="Reddet" method="post" class="d-inline ms-1">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@r.Id" />
+                                    <button class="btn btn-danger btn-sm">
+                                        Reddet
+                                    </button>
+                                </form>
+                            }
+                            else if (r.Durum == "Onaylandı")
+                            {
+                                <span class="badge bg-success">
+                                    Onaylandı
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">
+                                    Reddedildi
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

@@ -115,7 +115,8 @@ namespace WebProje_B231210095.Areas.Identity.Pages.Account
                 return Page();
             }
 
-            var passwordCorrect = await _signInManager.UserManager.CheckPasswordAsync(user, Input.Password);
+            var passwordCorrect = await _signInManager.UserManager
+                .CheckPasswordAsync(user, Input.Password);
 
             if (!passwordCorrect)
             {
@@ -131,13 +132,15 @@ namespace WebProje_B231210095.Areas.Identity.Pages.Account
             {
                 return Redirect("/Admin/Dashboard/Index");
             }
-
-            // Normal kullanıcı
-            return Redirect("/Uye/Dashboard");
-
-
+            else if (roles.Contains("Antrenor"))
+            {
+                return Redirect("/Antrenor/Dashboard");
+            }
+            else
+            {
+                return Redirect("/Uye/Dashboard");
+            }
         }
-
 
     }
 }

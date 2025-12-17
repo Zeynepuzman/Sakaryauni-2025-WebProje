@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using WebProje_B231210095.Models;
 
 namespace WebProje_B231210095.Data
@@ -28,8 +29,12 @@ namespace WebProje_B231210095.Data
             // Identity yapılandırmalarını uygula
             base.OnModelCreating(builder);
 
-            // MANY-TO-MANY (Antrenör ↔ Hizmet)
+             builder.Entity<Randevu>()
+            .Property(r => r.Ucret)
+            .HasPrecision(10, 2);
 
+
+            // MANY-TO-MANY (Antrenör ↔ Hizmet)
             // Birleşik anahtar
             builder.Entity<AntrenorHizmet>()
                 .HasKey(ah => new { ah.AntrenorId, ah.HizmetId });
