@@ -36,5 +36,7 @@ namespace WebProje_B231210095.Models
         [ValidateNever]
         public Hizmet Hizmet { get; set; }
         public decimal? Ucret { get; set; }
+
+        public string? ReddetmeSebebi { get; set; }
     }
 }

@@ -55,13 +55,11 @@
                                     </button>
                                 </form>
 
-                                <form asp-action="Reddet" method="post" class="d-inline ms-1">
-                                    @Html.AntiForgeryToken()
-                                    <input type="hidden" name="id" value="@r.Id" />
-                                    <button class="btn btn-danger btn-sm">
-                                        Reddet
-                                    </button>
-                                </form>
+                                <a asp-action="Reddet"
+                                   asp-route-id="@r.Id"
+                                   class="btn btn-danger btn-sm ms-1">
+                                    Reddet
+                                </a>
                             }
                             else if (r.Durum == "Onaylandı")
                             {

@@ -120,7 +120,34 @@
                                 <td>@r.Antrenor?.AdSoyad</td>
                                 <td>@r.Hizmet?.Ad</td>
                                 <td>@r.SureDakika dk</td>
-                                <td>@r.Durum</td>
+                                <td>
+                                    @if (r.Durum == "Reddedildi")
+                                    {
+                                        <span class="badge bg-danger">
+                                            Reddedildi
+                                        </span>
+
+                                        @if (!string.IsNullOrEmpty(r.ReddetmeSebebi))
+                                        {
+                                            <div class="text-muted small mt-1">
+                                                Sebep: @r.ReddetmeSebebi
+                                            </div>
+                                        }
+                                    }
+                                    else if (r.Durum == "Onaylandı")
+                                    {
+                                        <span class="badge bg-success">
+                                            Onaylandı
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            @r.Durum
+                                        </span>
+                                    }
+                                </td>
+
                             </tr>
                         }
                     </tbody>

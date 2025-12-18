@@ -19,6 +19,8 @@ public class AntrenorController : Controller
         _userManager = userManager;
     }
 
+    // ================= DASHBOARD =================
+    [HttpGet]
     public async Task<IActionResult> Dashboard()
     {
         var user = await _userManager.GetUserAsync(User);
@@ -40,7 +42,7 @@ public class AntrenorController : Controller
         return View(randevular);
     }
 
-    [Authorize(Roles = "Antrenor")]
+    // ================= ONAYLA =================
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Onayla(int id)
@@ -50,23 +52,42 @@ public class AntrenorController : Controller
             return NotFound();
 
         randevu.Durum = "Onaylandı";
+        randevu.ReddetmeSebebi = null; // güvenlik için
         await _context.SaveChangesAsync();
 
-        return RedirectToAction("Dashboard");
+        return RedirectToAction(nameof(Dashboard));
     }
 
-    [Authorize(Roles = "Antrenor")]
+    // ================= REDDET (GET) =================
+    // Sebep yazma ekranını açar
+    [HttpGet]
+    public async Task<IActionResult> Reddet(int id)
+    {
+        var randevu = await _context.Randevular
+            .Include(r => r.Uye)
+            .Include(r => r.Hizmet)
+            .FirstOrDefaultAsync(r => r.Id == id);
+
+        if (randevu == null)
+            return NotFound();
+
+        return View(randevu); // Views/Antrenor/Reddet.cshtml
+    }
+
+    // ================= REDDET (POST) =================
+    // Sebebi kaydeder
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Reddet(int id)
+    public async Task<IActionResult> Reddet(int id, string reddetmeSebebi)
     {
         var randevu = await _context.Randevular.FindAsync(id);
         if (randevu == null)
             return NotFound();
 
         randevu.Durum = "Reddedildi";
-        await _context.SaveChangesAsync();
+        randevu.ReddetmeSebebi = reddetmeSebebi;
 
-        return RedirectToAction("Dashboard");
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Dashboard));
     }
 }
