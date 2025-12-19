@@ -72,5 +72,5 @@ public class UyeController : Controller
 
         return RedirectToAction("Dashboard");
     }
-   
+    
 }

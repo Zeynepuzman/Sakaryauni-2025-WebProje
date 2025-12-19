@@ -16,6 +16,13 @@ builder.Services.AddIdentity<Uye, IdentityRole>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});
+
+
 builder.Services.AddSingleton<IEmailSender, FakeEmailSender>();
 
 builder.Services.AddControllersWithViews();
@@ -37,6 +44,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
 
 app.MapControllerRoute(
     name: "areas",

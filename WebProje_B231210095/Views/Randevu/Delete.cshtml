@@ -1,0 +1,28 @@
+﻿@model WebProje_B231210095.Models.Randevu
+
+@{
+    ViewData["Title"] = "Randevu İptal";
+}
+
+<h3>Randevu İptali</h3>
+
+<div class="alert alert-warning">
+    <p><strong>@Model.Hizmet.Ad</strong> hizmeti için</p>
+    <p><strong>@Model.Antrenor.AdSoyad</strong> ile olan</p>
+    <p><strong>@Model.TarihSaat.ToString("dd.MM.yyyy HH:mm")</strong> tarihli randevuyu iptal etmek üzeresiniz.</p>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <button type="submit" class="btn btn-danger">
+        Evet, İptal Et
+    </button>
+
+    <a asp-controller="Uye"
+       asp-action="Dashboard"
+       class="btn btn-secondary ms-2">
+        Vazgeç
+    </a>
+</form>

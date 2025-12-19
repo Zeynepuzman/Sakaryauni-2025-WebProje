@@ -32,16 +32,29 @@
                     <!-- SAĞ TARAF: Giriş Butonları -->
                     <div class="d-flex gap-2">
 
-                        <a href="/Home/Hizmetler" class="custom-btn-outline">
-                            Hizmetlerimiz
-                        </a>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <!-- GİRİŞ YAPILMIŞSA -->
+                            <form asp-area="Identity"
+                                  asp-page="/Account/Logout"
+                                  asp-route-returnUrl="/"
+                                  method="post">
+                                <button type="submit" class="custom-btn-outline">
+                                    Çıkış Yap
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <!-- GİRİŞ YAPILMAMIŞSA -->
+                            <a href="/Home/Hizmetler" class="custom-btn-outline">
+                                Hizmetlerimiz
+                            </a>
 
-                        <a href="/Identity/Account/Login" class="custom-btn-outline">
-                            Giriş Yap
-                        </a>
-
-                        
-                     
+                            <a href="/Identity/Account/Login" class="custom-btn-outline">
+                                Giriş Yap
+                            </a>
+                        }
 
                     </div>
 

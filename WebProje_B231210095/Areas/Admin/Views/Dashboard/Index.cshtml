@@ -73,12 +73,15 @@
         <div class="col-md-3">
             <div class="admin-card shadow-sm p-4 text-center rounded">
                 <h3 class="stat-number">@ViewBag.BugunRandevu</h3>
-                <p class="stat-label">Bugünkü Randevular</p>
+                <p class="stat-label">Randevular</p>
 
                 <button class="menu-toggle manage-btn" data-target="#randevuMenu">Yönet</button>
 
                 <div id="randevuMenu" class="submenu">
                     <a href="/Admin/Randevu" class="submenu-item">Bugünkü Randevular</a>
+                    <button type="button" class="submenu-item" onclick="loadRandevularApi()">
+                        Tüm Randevular (API)
+                    </button>
                 </div>
             </div>
         </div>
@@ -86,15 +89,70 @@
     </div>
 </div>
 
-<!-- JS: Alt menü aç/kapa -->
-<script>
-    document.querySelectorAll(".menu-toggle").forEach(btn => {
-        btn.addEventListener("click", function () {
-            const div = document.querySelector(this.dataset.target);
-            div.style.display = (div.style.display === "block") ? "none" : "block";
+<h4 class="mt-5" id="apiTitle" style="display:none">
+    Tüm Randevular (API)
+</h4>
+
+<table class="table table-striped" id="apiRandevuTable" style="display:none">
+    <thead>
+        <tr>
+            <th>Tarih</th>
+            <th>Üye</th>
+            <th>Antrenör</th>
+            <th>Hizmet</th>
+            <th>Süre</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Yönet butonları aç/kapa
+            document.querySelectorAll(".menu-toggle").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    const div = document.querySelector(this.dataset.target);
+                    div.style.display = (div.style.display === "block") ? "none" : "block";
+                });
+            });
+
         });
-    });
-</script>
+
+        function loadRandevularApi() {
+
+            document.getElementById("apiTitle").style.display = "block";
+            document.getElementById("apiRandevuTable").style.display = "table";
+
+            fetch('/api/randevular')
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.querySelector('#apiRandevuTable tbody');
+                    tbody.innerHTML = '';
+
+                    data.forEach(r => {
+                        const tarih = new Date(r.tarih).toLocaleString('tr-TR');
+
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${tarih}</td>
+                                <td>${r.uye}</td>
+                                <td>${r.antrenor}</td>
+                                <td>${r.hizmet}</td>
+                                <td>${r.sure} dk</td>
+                                <td>${r.durum}</td>
+                            </tr>
+                        `;
+                    });
+                });
+        }
+    </script>
+}
+
 
 <style>
     /* Kart genel tasarım */

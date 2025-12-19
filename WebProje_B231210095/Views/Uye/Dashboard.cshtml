@@ -4,91 +4,61 @@
     ViewData["Title"] = "Kullanıcı Paneli";
 }
 
-<div class="container mt-5">
+<div class="row g-4">
 
-    <h2 class="fw-bold mb-4">
-        Hoş geldin, @Model.AdSoyad 👋
-    </h2>
+    <!-- AKTİF PAKET -->
+    <div style="height:40px;"></div>
 
-    <div class="row g-4">
+    <div class="container">
 
-        @if (ViewBag.AktifPaket != null)
-        {
-            <div class="card shadow-sm p-4 mb-4 rounded-4">
-                <h5 class="fw-bold text-teal mb-2">Aktif Paketiniz</h5>
+        <h2 class="fw-bold mb-4">
+            Hoş geldin, @Model.AdSoyad 👋
+        </h2>
 
-                <p><strong>Paket:</strong> @ViewBag.AktifPaket.PaketAdi</p>
-                <p><strong>Kalan Gün:</strong> @ViewBag.AktifPaket.KalanGun gün</p>
+        <div class="row g-4 align-items-stretch">
 
-                <div class="d-flex gap-3 mt-3">
-                    <a asp-controller="Randevu"
-                       asp-action="Create"
-                       class="btn btn-powerzone rounded-pill px-4">
-                        Randevu Al
-                    </a>
+            <!-- AKTİF PAKET -->
+            <div class="col-md-8">
+                @if (ViewBag.AktifPaket != null)
+                {
+                    <div class="card shadow-sm p-4 rounded-4 h-100">
+                        <h5 class="fw-bold text-teal mb-2">Aktif Paketiniz</h5>
 
-                    <a asp-controller="Paket"
-                       asp-action="Index"
-                       class="btn btn-outline-powerzone rounded-pill px-4">
-                        Paket Değiştir
+                        <p><strong>Paket:</strong> @ViewBag.AktifPaket.PaketAdi</p>
+                        <p><strong>Kalan Gün:</strong> @ViewBag.AktifPaket.KalanGun gün</p>
+
+                        <div class="d-flex gap-3 mt-3">
+                            <a asp-controller="Randevu"
+                               asp-action="Create"
+                               class="btn btn-powerzone rounded-pill px-4">
+                                Randevu Al
+                            </a>
+
+                            <a asp-controller="Paket"
+                               asp-action="Index"
+                               class="btn btn-outline-powerzone rounded-pill px-4">
+                                Paket Değiştir
+                            </a>
+
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- PROFİL -->
+            <div class="col-md-4">
+                <div class="card shadow-sm p-4 text-center h-100">
+                    <h5 class="fw-bold">Profilim</h5>
+                    <p class="text-muted">Bilgilerini güncelle</p>
+
+                    <a asp-controller="Uye"
+                       asp-action="Edit"
+                       class="btn btn-powerzone rounded-pill mt-3">
+                        Profilimi Düzenle
                     </a>
                 </div>
             </div>
-        }
-        else
-        {
-            <div class="card shadow-sm p-4 mb-4 rounded-4">
-                <h5 class="fw-bold text-danger">Aktif Paketiniz Yok</h5>
-                <p>Randevu alabilmek için bir paket seçmelisiniz.</p>
 
-                <a asp-controller="Paket"
-                   asp-action="Index"
-                   class="btn btn-powerzone rounded-pill px-4">
-                    Paket Seç
-                </a>
-            </div>
-        }
-
-        <!-- PROFİL -->
-        <div class="col-md-4">
-            <div class="card shadow-sm p-4 text-center">
-                <h5 class="fw-bold">Profilim</h5>
-                <p class="text-muted">Bilgilerini güncelle</p>
-
-                <a asp-controller="Uye"
-                   asp-action="Edit"
-                   class="btn btn-powerzone rounded-pill">
-                    Profilimi Düzenle
-                </a>
-            </div>
-        </div>
-
-        <!-- PAKETLER -->
-        <div class="col-md-4">
-            <div class="card shadow-sm p-4 text-center">
-                <h5 class="fw-bold">Paketler</h5>
-                <p class="text-muted">Sana uygun paketleri incele</p>
-
-                <a asp-controller="Paket"
-                   asp-action="Index"
-                   class="btn btn-powerzone">
-                    Paketleri Gör
-                </a>
-            </div>
-        </div>
-
-        <!-- RANDEVU -->
-        <div class="col-md-4">
-            <div class="card shadow-sm p-4 text-center">
-                <h5 class="fw-bold">Randevu</h5>
-                <p class="text-muted">Randevularını görüntüle</p>
-
-                <a asp-controller="Uye"
-                   asp-action="Dashboard"
-                   class="btn btn-outline-powerzone rounded-pill px-4">
-                    Aşağıda Gör
-                </a>
-            </div>
         </div>
 
     </div>
@@ -146,6 +116,24 @@
                                             @r.Durum
                                         </span>
                                     }
+
+                                    @if (r.Durum == "Bekliyor")
+                                    {
+                                        <a asp-controller="Randevu"
+                                           asp-action="Edit"
+                                           asp-route-id="@r.Id"
+                                           class="btn btn-sm btn-primary">
+                                            Düzenle
+                                        </a>
+
+                                        <a asp-controller="Randevu"
+                                           asp-action="Delete"
+                                           asp-route-id="@r.Id"
+                                           class="btn btn-sm btn-danger ms-1">
+                                            Sil
+                                        </a>
+                                    }
+
                                 </td>
 
                             </tr>

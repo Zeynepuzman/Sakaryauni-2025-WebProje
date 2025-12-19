@@ -40,15 +40,36 @@
                 <span asp-validation-for="AntrenorId" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label class="fw-semibold">Tarih</label>
-                <input asp-for="Tarih" type="date" class="form-control" />
-            </div>
+            <input asp-for="Tarih" type="date" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
 
             <div class="mb-3">
                 <label class="fw-semibold">Saat</label>
-                <input asp-for="Saat" type="time" class="form-control" />
+                <select asp-for="Saat" class="form-control" required>
+                    <option value="">Saat seçiniz</option>
+
+                    @for (int hour = 9; hour <= 22; hour++)
+                    {
+                        for (int minute = 0; minute < 60; minute += 10)
+                        {
+                            if (hour == 22 && minute > 0)
+                            {
+                                break;
+                            }
+
+                            var timeValue = new TimeSpan(hour, minute, 0);
+                            <option value="@timeValue">
+                                @($"{hour:D2}:{minute:D2}")
+                            </option>
+                        }
+                    }
+                </select>
+
+                <small class="text-muted">
+                    Randevular 09:00 – 22:00 arası, 10 dakikalık aralıklarla alınır.
+                </small>
             </div>
+
+
 
             <div class="d-flex justify-content-between mt-4">
                 <a asp-controller="Uye" asp-action="Dashboard"
