@@ -44,41 +44,110 @@
     </div>
 </div>
 
+<div class="card shadow-lg p-4 text-center mt-5 rounded-4">
+    <h4 class="fw-bold mb-3">
+        Kişisel Spor & Beslenme Önerisi
+    </h4>
+
+    <p class="text-muted mb-4">
+        Yapay zekâ destekli sistem ile sana özel egzersiz ve beslenme önerilerini hemen al.
+    </p>
+
+    <a asp-controller="Ai"
+       asp-action="Index"
+       class="btn btn-powerzone btn-lg w-100 py-3 shadow">
+         Yapay Zekâdan Öneri Al
+    </a>
+
+</div>
 <!-- Spor Kategorileri -->
 <div class="container my-5">
     <h2 class="text-center fw-bold mb-4">Spor ve Wellness Alanları</h2>
 
     <div class="row g-4">
 
-        <div class="col-md-4">
-            <div class="card shadow category-card">
-                <img src="/images/fitness.jpg" class="card-img-top" />
-                <div class="card-body">
-                    <h5 class="card-title">Fitness</h5>
-                    <p class="card-text">Güç, dayanıklılık ve sağlıklı bir yaşam için antrenman planları.</p>
+        <div class="row g-4">
+
+            <!-- Fitness -->
+            <div class="col-md-4">
+                <div class="card shadow category-card h-100">
+                    <img src="/images/fitness.jpg" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">Fitness</h5>
+                        <p class="card-text">
+                            Güç, dayanıklılık ve sağlıklı bir yaşam için antrenman planları.
+                        </p>
+                    </div>
                 </div>
             </div>
+
+            <!-- Yoga -->
+            <div class="col-md-4">
+                <div class="card shadow category-card h-100">
+                    <img src="/images/yoga.jpg" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">Yoga</h5>
+                        <p class="card-text">
+                            Bedensel esneklik ve zihinsel rahatlama sağlayan yoga dersleri.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Beslenme -->
+            <div class="col-md-4">
+                <div class="card shadow category-card h-100">
+                    <img src="/images/beslenme.jpg" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">Beslenme</h5>
+                        <p class="card-text">
+                            Doğru beslenme ile daha enerjik ve sağlıklı bir yaşam.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kardiyo -->
+            <div class="col-md-4">
+                <div class="card shadow category-card h-100">
+                    <img src="/images/kardiyo.jpg" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">Kardiyo</h5>
+                        <p class="card-text">
+                            Yağ yakımı ve kalp sağlığı için tempolu egzersizler.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pilates -->
+            <div class="col-md-4">
+                <div class="card shadow category-card h-100">
+                    <img src="/images/pilates.jpg" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">Pilates</h5>
+                        <p class="card-text">
+                            Postür, denge ve core güçlendirmeye yönelik çalışmalar.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağlıklı Yaşam -->
+            <div class="col-md-4">
+                <div class="card shadow category-card h-100">
+                    <img src="/images/saglikliyasam.jpg" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">Sağlıklı Yaşam</h5>
+                        <p class="card-text">
+                            Uyku, stres yönetimi ve günlük yaşam alışkanlıkları.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <div class="col-md-4">
-            <div class="card shadow category-card">
-                <img src="/images/yoga.jpg" class="card-img-top" />
-                <div class="card-body">
-                    <h5 class="card-title">Yoga</h5>
-                    <p class="card-text">Bedensel esneklik ve zihinsel rahatlama sağlayan özel yoga dersleri.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow category-card">
-                <img src="/images/nutrition.jpg" class="card-img-top" />
-                <div class="card-body">
-                    <h5 class="card-title">Beslenme</h5>
-                    <p class="card-text">Doğru beslenme ile daha enerjik ve sağlıklı bir yaşam.</p>
-                </div>
-            </div>
-        </div>
 
     </div>
 </div>

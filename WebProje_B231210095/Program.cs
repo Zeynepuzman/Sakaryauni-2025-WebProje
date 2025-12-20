@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using WebProje_B231210095.Data;
 using WebProje_B231210095.Models;
+using WebProje_B231210095.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,14 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddSingleton<IEmailSender, FakeEmailSender>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<GroqAiService>();
+builder.Services.AddHttpClient<UnsplashImageService>();
+
+
+
 builder.Services.AddRazorPages();
+
+
 
 var app = builder.Build();
 
@@ -55,9 +63,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-// ===============================
 // ROL + ADMIN SEED
-// ===============================
 await CreateRolesAndAdminAsync(app);
 
 app.Run();

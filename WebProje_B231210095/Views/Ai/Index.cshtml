@@ -1,0 +1,106 @@
+﻿@model WebProje_B231210095.Models.AiInputViewModel
+
+@{
+    ViewData["Title"] = "Yapay Zekâ Destekli Öneri";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+
+            <div class="card shadow p-4 rounded-4">
+                <h3 class="fw-bold text-center mb-4">
+                    🤖 Yapay Zekâ Destekli Egzersiz & Beslenme Önerisi
+                </h3>
+
+                <p class="text-center text-muted mb-4">
+                    Bilgilerini gir, sana özel öneriyi hemen al.
+                    <br />
+                    <small>(Giriş yapmadan kullanabilirsin)</small>
+                </p>
+
+                <!-- 🔴 Hata Özeti -->
+                <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                <form asp-action="Generate" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <!-- YAŞ -->
+                    <div class="mb-3">
+                        <label class="form-label">Yaş</label>
+                        <input asp-for="Yas" class="form-control" />
+                        <span asp-validation-for="Yas" class="text-danger"></span>
+                    </div>
+
+                    <!-- CİNSİYET -->
+                    <div class="mb-3">
+                        <label class="form-label">Cinsiyet</label>
+                        <select asp-for="Cinsiyet" class="form-select">
+                            <option value="">Seçiniz</option>
+                            <option value="Kadın">Kadın</option>
+                            <option value="Erkek">Erkek</option>
+                        </select>
+                        <span asp-validation-for="Cinsiyet" class="text-danger"></span>
+                    </div>
+
+                    <!-- BOY -->
+                    <div class="mb-3">
+                        <label class="form-label">Boy (cm)</label>
+                        <input asp-for="Boy" class="form-control" />
+                        <span asp-validation-for="Boy" class="text-danger"></span>
+                    </div>
+
+                    <!-- KİLO -->
+                    <div class="mb-3">
+                        <label class="form-label">Kilo (kg)</label>
+                        <input asp-for="Kilo" class="form-control" />
+                        <span asp-validation-for="Kilo" class="text-danger"></span>
+                    </div>
+
+                    <!-- VÜCUT TİPİ -->
+                    <div class="mb-3">
+                        <label class="form-label">Vücut Tipi</label>
+                        <select asp-for="VucutTipi" class="form-select">
+                            <option value="">Seçiniz</option>
+                            <option value="Ektomorf">Ektomorf (Zayıf)</option>
+                            <option value="Mezomorf">Mezomorf (Atletik)</option>
+                            <option value="Endomorf">Endomorf (Kiloya yatkın)</option>
+                        </select>
+                        <span asp-validation-for="VucutTipi" class="text-danger"></span>
+                    </div>
+
+                    <!-- HEDEF -->
+                    <div class="mb-3">
+                        <label class="form-label">Hedef</label>
+                        <select asp-for="Hedef" class="form-select">
+                            <option value="">Seçiniz</option>
+                            <option value="Kilo Vermek">Kilo Vermek</option>
+                            <option value="Kas Geliştirmek">Kas Geliştirmek</option>
+                            <option value="Fit Kalmak">Fit Kalmak</option>
+                        </select>
+                        <span asp-validation-for="Hedef" class="text-danger"></span>
+                    </div>
+
+                    <!-- HAFTALIK GÜN -->
+                    <div class="mb-4">
+                        <label class="form-label">
+                            Haftada Kaç Gün Spor Yapabilirsin?
+                        </label>
+                        <input asp-for="HaftadaKacGun" class="form-control" />
+                        <span asp-validation-for="HaftadaKacGun" class="text-danger"></span>
+                    </div>
+
+                    <!-- BUTON -->
+                    <button type="submit" class="btn btn-primary w-100">
+                        Yapay Zekâdan Öneri Al
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

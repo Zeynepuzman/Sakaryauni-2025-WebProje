@@ -2,3 +2,5 @@
 # Build output
 bin/
 obj/
+# Development secrets
+WebProje_B231210095/appsettings.Development.json

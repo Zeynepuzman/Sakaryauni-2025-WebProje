@@ -339,3 +339,13 @@ body {
     border-radius: 22px;
     border: 1px solid #eaeaea;
 }
+
+.category-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+ .category-card:hover {
+ transform: translateY(-6px);
+ box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+
+ }
