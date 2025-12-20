@@ -43,6 +43,20 @@
                         </div>
                     </div>
                 }
+                else
+                {
+                    <div class="card shadow-sm p-4 rounded-4 h-100">
+                        <h5 class="fw-bold text-teal mb-2">Paketiniz bulunmuyor</h5>
+                        <p class="mb-3">Hemen bir paket seçerek üyeliğinizi başlatabilirsiniz.</p>
+
+                        <a asp-controller="Paket"
+                           asp-action="Index"
+                           class="btn btn-powerzone rounded-pill px-4">
+                            Paket Seç
+                        </a>
+                    </div>
+                }
+
             </div>
 
             <!-- PROFİL -->

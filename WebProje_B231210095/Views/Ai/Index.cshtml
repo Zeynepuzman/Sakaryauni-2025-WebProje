@@ -10,7 +10,7 @@
 
             <div class="card shadow p-4 rounded-4">
                 <h3 class="fw-bold text-center mb-4">
-                    🤖 Yapay Zekâ Destekli Egzersiz & Beslenme Önerisi
+                     Yapay Zekâ Destekli Egzersiz & Beslenme Önerisi
                 </h3>
 
                 <p class="text-center text-muted mb-4">
@@ -19,8 +19,11 @@
                     <small>(Giriş yapmadan kullanabilirsin)</small>
                 </p>
 
-                <!-- 🔴 Hata Özeti -->
-                <div asp-validation-summary="All" class="alert alert-danger"></div>
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div asp-validation-summary="All" class="alert alert-danger"></div>
+                }
+               
 
                 <form asp-action="Generate" method="post">
                     @Html.AntiForgeryToken()

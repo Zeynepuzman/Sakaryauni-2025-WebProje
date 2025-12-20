@@ -24,6 +24,15 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // 30 dk pasiflik
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddSingleton<IEmailSender, FakeEmailSender>();
 
 builder.Services.AddControllersWithViews();
@@ -51,6 +60,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseSession();
 app.MapRazorPages();
 
 

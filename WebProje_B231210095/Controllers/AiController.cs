@@ -30,9 +30,12 @@ namespace WebProje_B231210095.Controllers
             if (!ModelState.IsValid)
                 return View("Index", model);
 
+            HttpContext.Session.SetString("UserGender", model.Cinsiyet);
+            HttpContext.Session.SetInt32("UserAge", model.Yas);
+
             var aiText = await _grokAiService.GeneratePlanAsync(model);
 
-            // 🔥 Unsplash'tan gerçek görsel
+            // Unsplash'tan gerçek görsel
             var imageUrl = await _unsplashImageService.GetFitnessImageAsync(
                 model.Cinsiyet,
                 model.Hedef

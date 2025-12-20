@@ -1,4 +1,6 @@
 ﻿@model WebProje_B231210095.Models.AiResultViewModel
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 
 @{
     ViewData["Title"] = "Yapay Zekâ Önerisi";
@@ -8,19 +10,40 @@
     <div class="card shadow p-4 rounded-4">
 
         <h3 class="fw-bold mb-3">
-            🤖 Yapay Zekâ Destekli Öneri
+             Yapay Zekâ Destekli Öneri
         </h3>
 
-        <!-- 🧠 Yapay zekâ metni -->
+        <!-- Yapay zekâ metni -->
         <div class="mb-4">
             <p style="white-space: pre-line;">
                 @Model.ResultText
             </p>
         </div>
+        <p class="text-muted">
+            Hoş geldin,
+            @HttpContextAccessor.HttpContext.Session.GetString("UserName")
+        </p>
+
+        </p>
+
+        <p class="text-muted">
+            Yaş:
+            <strong>
+                @HttpContextAccessor.HttpContext.Session.GetInt32("UserAge")
+            </strong>
+        </p>
+
+        <p class="text-muted">
+            Yaş:
+            <strong>
+                @HttpContextAccessor.HttpContext.Session.GetInt32("UserAge")
+            </strong>
+        </p>
+
 
         <hr />
 
-        <!-- 📌 Vücut etkisi -->
+        <!--  Vücut etkisi -->
         <h5 class="fw-semibold">📌 Tahmini Vücut Etkisi</h5>
         <p>
             @Model.BodyDescription
@@ -42,7 +65,7 @@
 
         <hr />
 
-        <!-- 🔓 GİRİŞ ZORUNLU DEĞİL -->
+        <!--  GİRİŞ ZORUNLU DEĞİL -->
         <div class="mt-4">
             <p class="fw-semibold">
                 Daha detaylı ve kişisel bir program oluşturmak ister misin?
@@ -50,12 +73,13 @@
 
             <div class="d-grid gap-2">
                 <!-- Giriş yapmak isterse -->
-                <a asp-controller="Account"
-                   asp-action="Login"
+                <a asp-area="Identity"
+                   asp-page="/Account/Login"
                    class="btn btn-powerzone">
                     Evet, Giriş Yaparak Devam Et
                 </a>
-
+ 
+                <!-- Giriş yapmadan devam -->
                 <a asp-controller="Home"
                    asp-action="Index"
                    class="btn btn-powerzone-outline">
